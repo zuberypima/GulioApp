@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "326055764924",
+    "project_id": "gulio-f0b07",
+    "storage_bucket": "gulio-f0b07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:326055764924:android:bee5d46e0511adb156c1b9",
+        "android_client_info": {
+          "package_name": "com.example.gulio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "326055764924-fbqd9fjn5gdashhqiedt6pv90c0mtcct.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBofcqePpI2Z-Nabt8H-VpGENBXB46Ymhc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "326055764924-fbqd9fjn5gdashhqiedt6pv90c0mtcct.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
