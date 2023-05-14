@@ -13,6 +13,7 @@ class PostPage extends StatefulWidget {
 }
 final picker = ImagePicker();
 File? _imageFile;
+
 class _PostPageState extends State<PostPage> {
   @override
   Widget build(BuildContext context) {
@@ -46,15 +47,15 @@ class _PostPageState extends State<PostPage> {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: FormFieldOne(hintText:'Aina ya zao lako' ),
+          child: FormFieldOne(hintText:'Aina ya zao lako',textContoler: '', ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: FormFieldOne(hintText: 'Locatio'),
+          child: FormFieldOne(hintText: 'Locatio',textContoler: '',),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: FormFieldOne(hintText: 'Bei kwa kilo'),
+          child: FormFieldOne(hintText: 'Bei kwa kilo',textContoler:'Hello',),
         ),
          Padding(
            padding: const EdgeInsets.all(20),

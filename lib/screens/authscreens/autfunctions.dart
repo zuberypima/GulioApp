@@ -10,7 +10,26 @@ class AuthFunction{
 
 
   // Check the user is logged in
-  
+
+  // usre login 
+   Future<void> login(BuildContext context, String email ,password) async {
+    try {
+      
+      await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      // _errorMessage = e.message!;
+      // _loading = false;
+      // notifyListeners();
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Hello check your detail')),
+      );
+    }
+  }
+  // User sign up first time;
   signUp(
    String
     firstName,
@@ -18,6 +37,7 @@ class AuthFunction{
     phonenumber,
     email,
    password,
+   userlocation,
   ) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
@@ -29,6 +49,7 @@ class AuthFunction{
         phonenumber,
         email,
         'Mkulima',
+        userlocation
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -46,7 +67,7 @@ class AuthFunction{
     String _lastName,
     _email,
     _phonenumber,
-    _userrole
+    _userrole,userlocation
   ) async {
     User? userAuth = auth.currentUser;
     if (userAuth != null) {
@@ -55,10 +76,7 @@ class AuthFunction{
         "email": _email,
         "phone": _phonenumber,
         "userrole": _userrole,
-        "address": {
-          "District": '',
-          "Region": '',
-        },
+       "location":userlocation,
         'Crops':'Mazao 1'
       });
     }

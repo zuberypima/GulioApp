@@ -233,7 +233,7 @@ class FarmerRegPage extends StatelessWidget {
                 },
                 child: InkWell(
                   onTap: () async{
-                    await AuthFunction().signUp(_firstName,_lastName,_phonenumber,_email,_password);
+                    await AuthFunction().signUp(_firstName,_lastName,_phonenumber,_email,_password,'Tanzaia');
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SelecteCropPage()));
                   },
                   child: Container(
