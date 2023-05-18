@@ -3,25 +3,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gulio/screens/homepage.dart';
 
-class AuthFunction{
-   final FirebaseAuth auth = FirebaseAuth.instance;
+class AuthFunction {
+  final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-
-  // Check the user is logged in
-
-  // usre login 
-   Future<void> login(BuildContext context, String email ,password) async {
+  bool loading = false;
+  
+  Future<void> login(
+      BuildContext context, String email, String password) async {
     try {
-      
+
       await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>HomePage()));
+      
     } on FirebaseAuthException catch (e) {
       // _errorMessage = e.message!;
-      // _loading = false;
       // notifyListeners();
       print(e);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -29,28 +30,22 @@ class AuthFunction{
       );
     }
   }
+
   // User sign up first time;
   signUp(
-   String
-    firstName,
+    String firstName,
     lastName,
     phonenumber,
     email,
-   password,
-   userlocation,
+    password,
+    userlocation,
   ) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
       userDataCollections(
-        firstName,
-        lastName,
-        phonenumber,
-        email,
-        'Mkulima',
-        userlocation
-      );
+          firstName, lastName, phonenumber, email, 'Mkulima', userlocation);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -62,13 +57,8 @@ class AuthFunction{
     }
   }
 
-  userDataCollections(
-    String _firstName,
-    String _lastName,
-    _email,
-    _phonenumber,
-    _userrole,userlocation
-  ) async {
+  userDataCollections(String _firstName, String _lastName, _email, _phonenumber,
+      _userrole, userlocation) async {
     User? userAuth = auth.currentUser;
     if (userAuth != null) {
       await _firestore.collection('Users').doc(userAuth.email).set({
@@ -76,8 +66,8 @@ class AuthFunction{
         "email": _email,
         "phone": _phonenumber,
         "userrole": _userrole,
-       "location":userlocation,
-        'Crops':'Mazao 1'
+        "location": userlocation,
+        'Crops': 'Mazao 1'
       });
     }
   }

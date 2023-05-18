@@ -1,22 +1,42 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gulio/screens/authscreens/autfunctions.dart';
 import 'package:gulio/screens/select_crop_page.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 
+class FarmerRegPage extends StatefulWidget {
+  FarmerRegPage({Key? key}) : super(key: key);
 
-class FarmerRegPage extends StatelessWidget {
- FarmerRegPage({Key? key}) : super(key: key);
+  @override
+  State<FarmerRegPage> createState() => _FarmerRegPageState();
+}
+
+class _FarmerRegPageState extends State<FarmerRegPage> {
   // User authUser =User
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
-    String _firstName='', _lastName='',_phonenumber='', _email='', _password='';
-           User? user = FirebaseAuth.instance.currentUser;
+    String _firstName = '',
+        _lastName = '',
+        _phonenumber = '',
+        _email = '',
+        _password = '';
+    User? user = FirebaseAuth.instance.currentUser;
+
+    bool _isLoading = false;
     return Scaffold(
       // backgroundColor: ConstantsColors().mainColor(),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: ConstantsColors().mainColor(),
+        title: Text('Usajili wa Mkulima'),
+      ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
         child: ListView(
@@ -41,7 +61,7 @@ class FarmerRegPage extends StatelessWidget {
                     color: Colors.white,
                     child: TextFormField(
                       onChanged: (value) {
-                        _firstName=value;
+                        _firstName = value;
                       },
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
@@ -75,7 +95,7 @@ class FarmerRegPage extends StatelessWidget {
                     color: Colors.white,
                     child: TextFormField(
                       onChanged: (value) {
-                        _lastName=value;
+                        _lastName = value;
                       },
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
@@ -109,7 +129,7 @@ class FarmerRegPage extends StatelessWidget {
                     color: Colors.white,
                     child: TextFormField(
                       onChanged: (value) {
-                        _email=value;
+                        _email = value;
                       },
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
@@ -143,7 +163,7 @@ class FarmerRegPage extends StatelessWidget {
                     color: Colors.white,
                     child: TextFormField(
                       onChanged: (value) {
-                        _phonenumber=value;
+                        _phonenumber = value;
                       },
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
@@ -176,9 +196,9 @@ class FarmerRegPage extends StatelessWidget {
                     height: 45,
                     color: Colors.white,
                     child: TextFormField(
-                       obscureText: true,
+                      obscureText: true,
                       onChanged: (value) {
-                        _password=value;
+                        _password = value;
                       },
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
@@ -229,12 +249,20 @@ class FarmerRegPage extends StatelessWidget {
               child: Center(
                   child: InkWell(
                 onTap: () {
-                    // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SelecteCropPage()));
+                  // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SelecteCropPage()));
                 },
                 child: InkWell(
-                  onTap: () async{
-                    await AuthFunction().signUp(_firstName,_lastName,_phonenumber,_email,_password,'Tanzaia');
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SelecteCropPage()));
+                  onTap: () async {
+                    // await AuthFunction().signUp(_firstName,_lastName,_phonenumber,_email,_password,'Tanzaia');
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    _loadingIndicator(_isLoading);
+                    await signUp(_firstName, _lastName, _phonenumber, _email,
+                        _password, 'Tanzania');
+                    setState(() {
+                      _isLoading = false;
+                    });
                   },
                   child: Container(
                     width: 130,
@@ -260,5 +288,95 @@ class FarmerRegPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  signUp(
+    String firstName,
+    lastName,
+    phonenumber,
+    email,
+    password,
+    userlocation,
+  ) async {
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+     await userDataCollections(
+          firstName, lastName, phonenumber, email, 'Mkulima', userlocation);
+           Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SelecteCropPage()));
+
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  userDataCollections(String _firstName, String _lastName, _email, _phonenumber,
+      _userrole, userlocation) async {
+    User? userAuth = auth.currentUser;
+    if (userAuth != null) {
+      await _firestore.collection('Users').doc(userAuth.email).set({
+        "name": "$_firstName $_lastName",
+        "email": _email,
+        "phone": _phonenumber,
+        "userrole": _userrole,
+        "location": userlocation,
+        'Crops': 'Mazao 1'
+      });
+    }
+  }
+
+  _loadingIndicator(bool isactive) {
+    if (isactive) {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Tafadhali Subiri'),
+            content: Container(
+              height: MediaQuery.of(context).size.height / 5,
+              child: Center(
+                  child: CircularProgressIndicator(
+                color: ConstantsColors().mainColor(),
+              )),
+            ),
+            actions: [
+              TextButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Tafadhali Subiri'),
+            content: Container(
+              child: Text("Please check your conection"),
+            ),
+            actions: [
+              TextButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

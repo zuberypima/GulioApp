@@ -15,8 +15,12 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    String email = '';
-    String password = '';
+    // String _email = '';
+    // String _password = '';
+
+    final _email = TextEditingController();
+    final _password = TextEditingController();
+    bool isLoading = false;
     return Scaffold(
       // backgroundColor: ConstantsColors().mainColor(),
       backgroundColor: Colors.white,
@@ -37,62 +41,39 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.all(10),
-          //   child: FormFieldOne(
-          //     hintText: 'Barua pepe',
-          //     textContoler: email,
-          //   ),
-          // ),
-          Container(
-            height: 45,
-            color: Colors.white,
-            child: TextFormField(
-              // controller: widget.textContoler,
-              onChanged: (value) {
-                setState(() {
-                  email = value;
-                });
-              },
-              decoration: InputDecoration(
-                  enabledBorder:
-                      OutlineInputBorder(borderSide: BorderSide(width: 2)),
-                  focusedBorder:
-                      OutlineInputBorder(borderSide: BorderSide(width: 2)),
-                  hintText: 'Email Address'),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: FormFieldOne(
+              hintText: 'Barua pepe',
+              textContoler: _email,
             ),
           ),
-                Container(
-            height: 45,
-            color: Colors.white,
-            child: TextFormField(
-              obscureText: true,
-              // controller: widget.textContoler,
-              onChanged: (value) {
-                setState(() {
-                  password = value;
-                });
-              },
-              decoration: InputDecoration(
-                  enabledBorder:
-                      OutlineInputBorder(borderSide: BorderSide(width: 2)),
-                  focusedBorder:
-                      OutlineInputBorder(borderSide: BorderSide(width: 2)),
-                  hintText: 'Password'),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: FormFieldOne(
+              hintText: 'Neeo la Siri',
+              textContoler: _password,
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.all(10),
-          //   child: FormFieldOne(
-          //     hintText: 'Neeo la Siri',
-          //     textContoler: password,
-          //   ),
-          // ),
           Center(
               child: InkWell(
-            onTap: () {
-              AuthFunction().login(context, email, password);
-              // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>HomePage()));
+            onTap: () async {
+              setState(() {
+                isLoading = true;
+                _loadingIndicator(isLoading);
+              });
+              try {
+                await AuthFunction()
+                    .login(context, _email.text, _password.text);
+              } catch (e) {
+               
+                print(e);
+              }
+               setState(() {
+                  isLoading = false;
+                  _loadingIndicator(isLoading);
+                }
+                );
             },
             child: Container(
               width: 130,
@@ -134,5 +115,55 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+  }
+
+  // Loading Indicator
+
+  _loadingIndicator(bool isactie) {
+    if (isactie == true) {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Tafadhali Subiri'),
+            content: Container(
+              height: MediaQuery.of(context).size.height / 5,
+              child: Center(
+                  child: CircularProgressIndicator(
+                color: ConstantsColors().mainColor(),
+              )),
+            ),
+            actions: [
+              TextButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Tafadhali Subiri'),
+            content: Container(
+              child: Text("Verify"),
+            ),
+            actions: [
+              TextButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

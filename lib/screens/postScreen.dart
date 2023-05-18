@@ -47,15 +47,15 @@ class _PostPageState extends State<PostPage> {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: FormFieldOne(hintText:'Aina ya zao lako',textContoler: '', ),
+          // child: FormFieldOne(hintText:'Aina ya zao lako',textContoler: , ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: FormFieldOne(hintText: 'Locatio',textContoler: '',),
+          // child: FormFieldOne(hintText: 'Locatio',textContoler: '',),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: FormFieldOne(hintText: 'Bei kwa kilo',textContoler:'Hello',),
+          // child: FormFieldOne(hintText: 'Bei kwa kilo',textContoler:'Hello',),
         ),
          Padding(
            padding: const EdgeInsets.all(20),

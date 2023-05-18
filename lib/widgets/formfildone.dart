@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class FormFieldOne extends StatefulWidget {
   String hintText;
-  String textContoler='';
+  // String textContoler;
+  TextEditingController textContoler;
   FormFieldOne({super.key, required this.hintText,required  this.textContoler});
 
   @override
@@ -16,12 +17,12 @@ class _FormFieldOneState extends State<FormFieldOne> {
       height: 45,
       color: Colors.white,
       child: TextFormField(
-        // controller: widget.textContoler,
-        onChanged: (value) {
-         setState(() {
-            widget.textContoler =value;
-         });
-        },
+         controller: widget.textContoler,
+        // onChanged: (value) {
+        
+        //   //   widget.textContoler =value;
+        //   value =widget.textContoler;
+        // },
         decoration: InputDecoration(
           enabledBorder:
               OutlineInputBorder(borderSide: BorderSide(width: 2)),
