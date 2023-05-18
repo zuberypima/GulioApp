@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gulio/providers/userdata.dart';
 import 'package:gulio/screens/authscreens/loginpage.dart';
 import 'package:gulio/screens/homepage.dart';
+import 'package:gulio/screens/profilescreen.dart';
 import 'package:gulio/screens/select_crop_page.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
     
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:LoginPage()
+      home:HomePage(),
     );
   }
 }
