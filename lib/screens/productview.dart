@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gulio/screens/makeoderscreen.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 
 class ProductView extends StatefulWidget {
@@ -141,7 +142,7 @@ class _ProductViewState extends State<ProductView> {
            padding: const EdgeInsets.all(20),
            child: InkWell(
                 onTap: () {
-                 
+                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MakeOrderPage()));
                 },
                 child: Container(
                   width: 130,
