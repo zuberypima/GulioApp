@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:gulio/screens/Screenhome.dart';
 import 'package:gulio/screens/marketpage.dart';
+import 'package:gulio/screens/orders.dart';
 import 'package:gulio/screens/postScreen.dart';
 import 'package:gulio/screens/profilescreen.dart';
 import 'package:gulio/utilities/constantscolors.dart';
@@ -17,10 +18,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [HomeScreen(), MarketPage(), ProfileScreen()];
+  final List<Widget> _pages = [HomeScreen(), MarketPage(), Orders(),ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +33,8 @@ class _HomePageState extends State<HomePage> {
           // ignore: prefer_const_literals_to_create_immutables
           currentIndex: _currentIndex,
           selectedItemColor: ConstantsColors().mainColor(),
+          unselectedItemColor: Colors.grey,
+          unselectedLabelStyle: TextStyle(color: Colors.grey),
           onTap: _onItemTapped,
           items: [
             BottomNavigationBarItem(
@@ -43,26 +45,21 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.business),
               label: 'Sokoni',
             ),
+           BottomNavigationBarItem(
+              icon: Icon(Icons.message),
+              label: 'orders',
+            ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.school),
+              icon: Icon(Icons.person),
               label: 'Profile',
             ),
-          ],
-        ),
 
-        // add button
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: ConstantsColors().mainColor(),
-          onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => PostPage()));
-          },
-          child: Icon(Icons.add),
+          
+          ],
         ),
       ),
     );
   }
-
   void _onItemTapped(int index) {
     setState(() {
       _currentIndex = index;

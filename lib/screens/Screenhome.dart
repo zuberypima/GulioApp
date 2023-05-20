@@ -18,19 +18,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
  
-
-  final List<Widget> _pages = [HomeScreen(), MarketPage(), ProfileScreen()];
-
   @override
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
     return SafeArea(
       child: Scaffold(
-        // drawer: NavDrawer(),
-        // appBar: AppBar(
-        //   elevation: 0,
-        //   backgroundColor: ConstantsColors().mainColor(),
-        // ),
         body: ListView(
           children: [
             Padding(
