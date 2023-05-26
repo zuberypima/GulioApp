@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:gulio/services/gerneralservices.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/formfildone.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,7 +15,9 @@ class PostPage extends StatefulWidget {
 }
 final picker = ImagePicker();
 File? _imageFile;
-
+ CollectionReference cropsposted = FirebaseFirestore.instance.collection('Usersss');
+ String _bei="";
+ String _kipimo="";
 class _PostPageState extends State<PostPage> {
   @override
   Widget build(BuildContext context) {
@@ -57,11 +61,45 @@ class _PostPageState extends State<PostPage> {
           padding: const EdgeInsets.all(8.0),
           // child: FormFieldOne(hintText: 'Bei kwa kilo',textContoler:'Hello',),
         ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Bei',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.blueGrey),),
+              TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    _bei =value;
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
+         Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Kipimo',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.blueGrey),),
+              TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    _kipimo =value;
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
+        
          Padding(
            padding: const EdgeInsets.all(20),
            child: InkWell(
                 onTap: () {
-                 
+                  print("object");
+                 GeneralServices().postCrop(_bei,_kipimo);
                 },
                 child: Container(
                   width: 130,
@@ -84,6 +122,8 @@ class _PostPageState extends State<PostPage> {
          ),
       ],),
     );
+
+    
   }
 
 
@@ -96,4 +136,5 @@ class _PostPageState extends State<PostPage> {
       });
     }
   }
+
 }

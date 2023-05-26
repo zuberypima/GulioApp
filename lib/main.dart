@@ -16,12 +16,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
-    MultiProvider(providers: [
-       ChangeNotifierProvider(create: (_)=>UserDetails())
-  ],
-  child: MyApp(),
-  ),
-  
+  MyApp(),  
   );
 }
 class MyApp extends StatelessWidget {
@@ -31,7 +26,7 @@ class MyApp extends StatelessWidget {
     
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: 'login',
       routes: {
         '/':(context)=> HomePage(),
         'profile':(context)=>ProfileScreen(),
