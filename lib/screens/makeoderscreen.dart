@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gulio/services/gerneralservices.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 
 class MakeOrderPage extends StatefulWidget {
@@ -7,8 +8,10 @@ class MakeOrderPage extends StatefulWidget {
   @override
   State<MakeOrderPage> createState() => _MakeOrderPageState();
 }
-
+ TextEditingController _offer =TextEditingController();
+TextEditingController _details =TextEditingController();
 class _MakeOrderPageState extends State<MakeOrderPage> {
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,7 +175,9 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
               children: [
                 Text('Ofa Yangu',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.blueGrey),),
                 Divider(),
-                TextFormField(),
+                TextFormField(
+                  controller: _offer,
+                ),
               ],
             ),
           ),
@@ -183,14 +188,17 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
               children: [
                 Text('Maelezo mafupi',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.blueGrey),),
                 Divider(),
-                TextFormField(),
+                TextFormField(
+                  controller: _details,
+                ),
               ],
             ),),
              Padding(
            padding: const EdgeInsets.all(20),
            child: InkWell(
                 onTap: () {
-                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MakeOrderPage()));
+                //  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MakeOrderPage()));
+                GeneralServices().oderpressed(_offer.text,_details.text);
                 },
                 child: Container(
                   width: 130,

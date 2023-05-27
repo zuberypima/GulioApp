@@ -12,6 +12,7 @@ class Messages extends StatefulWidget {
 }
 
 final User? user = FirebaseAuth.instance.currentUser;
+TextEditingController _messagebody = TextEditingController();
 
 class _MessagesState extends State<Messages> {
   @override
@@ -23,6 +24,7 @@ class _MessagesState extends State<Messages> {
         .snapshots();
 
     return Scaffold(
+      backgroundColor: Colors.greenAccent[100],
       appBar: AppBar(
         elevation: 0,
         backgroundColor: ConstantsColors().mainColor(),
@@ -47,13 +49,22 @@ class _MessagesState extends State<Messages> {
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
                   return Padding(
-                    padding: const EdgeInsets.only(left: 10,right: 10,bottom: 5,top: 5),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2,
-                      decoration: BoxDecoration(border: Border.all()),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(data['body']),
+                    padding: const EdgeInsets.only(
+                        left: 10, right: 10, bottom: 5, top: 5),
+                    child: Flexible(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 2,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                topRight: Radius.circular(10))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(data['body']),
+                        ),
                       ),
                     ),
                   );
@@ -62,29 +73,48 @@ class _MessagesState extends State<Messages> {
             },
           ),
           Positioned(
-            bottom: 20,
+            bottom: 0,
             left: 0,
-            right:40,
+            right: 40,
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Container(
                   height: 45,
                   width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(border: Border.all(),borderRadius: BorderRadius.circular(10)),
+                  decoration: BoxDecoration(
+                    color:  Colors.greenAccent[100],
+                      border: Border.all(
+                        color: Colors.indigoAccent,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(10)),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
-                    child: TextField(),
+                    child: TextField(
+                      controller: _messagebody,
+                    ),
                   )),
             ),
           ),
           Positioned(
-            bottom: 30,
-            right: 0,
-            child: IconButton(
-            onPressed: () {
-              GeneralServices().sendSMS();
-            },
-            icon: Icon(Icons.send,size: 38,color: ConstantsColors().mainColor(),),))
+              bottom: 10,
+              right: 0,
+              child: CircleAvatar(
+                backgroundColor: Colors.white38,
+                radius: 25,
+                child: Center(
+                  child: IconButton(
+                    onPressed: () {
+                      GeneralServices().sendSMS(_messagebody.text);
+                    },
+                    icon: Icon(
+                      Icons.send,
+                      size: 30,
+                      color: Colors.indigoAccent,
+                    ),
+                  ),
+                ),
+              ))
         ],
       ),
     );
