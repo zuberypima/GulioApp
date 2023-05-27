@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class GeneralServices{
  User? user =FirebaseAuth.instance.currentUser;
    CollectionReference cropsposted = FirebaseFirestore.instance.collection('Users');
+    CollectionReference messages = FirebaseFirestore.instance.collection('Users');
  postCrop (String bei ,String kipimo){
        return cropsposted.doc(user!.email).collection('Posts').add({
         'Bei':bei,
@@ -13,7 +14,15 @@ class GeneralServices{
        });
   }
 
+  sendSMS (){
+    return messages.doc(user!.email).collection('Messages').add({
+      'Sender':'Sender',
+      'Receiver':'Receiver',
+      'body':'Test Message Body',
+      'Date':'Test Date',
+    });
 
+  }
     
 
 }
