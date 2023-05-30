@@ -23,7 +23,11 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiProvider(providers: [
+      // Provider<UserDetails>(create:(context)=>UserDetails()),
+      ChangeNotifierProvider<UserDetails>(create: (context)=>UserDetails())
+    ],
+    child: MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: 'login',
       routes: {
@@ -35,6 +39,7 @@ class MyApp extends StatelessWidget {
         'register':(context) =>SelectAccountType(),
         'order':(context) => Orders(),
       },
+    ) ,
     );
   }
 }

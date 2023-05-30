@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gulio/providers/userdata.dart';
 import 'package:gulio/services/gerneralservices.dart';
 import 'package:gulio/utilities/constantscolors.dart';
+import 'package:provider/provider.dart';
 
 class MakeOrderPage extends StatefulWidget {
   const MakeOrderPage({super.key});
@@ -8,12 +10,14 @@ class MakeOrderPage extends StatefulWidget {
   @override
   State<MakeOrderPage> createState() => _MakeOrderPageState();
 }
- TextEditingController _offer =TextEditingController();
-TextEditingController _details =TextEditingController();
+
+TextEditingController _offer = TextEditingController();
+TextEditingController _details = TextEditingController();
+
 class _MakeOrderPageState extends State<MakeOrderPage> {
- 
   @override
   Widget build(BuildContext context) {
+    final _selectedbidhaa = Provider.of<UserDetails>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ConstantsColors().mainColor(),
@@ -173,7 +177,13 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Ofa Yangu',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.blueGrey),),
+                Text(
+                  'Ofa Yangu',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.blueGrey),
+                ),
                 Divider(),
                 TextFormField(
                   controller: _offer,
@@ -181,44 +191,56 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
               ],
             ),
           ),
-         Padding(
+          Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Maelezo mafupi',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.blueGrey),),
+                Text(
+                  'Maelezo mafupi',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.blueGrey),
+                ),
                 Divider(),
                 TextFormField(
                   controller: _details,
                 ),
               ],
-            ),),
-             Padding(
-           padding: const EdgeInsets.all(20),
-           child: InkWell(
-                onTap: () {
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: InkWell(
+              onTap: () {
                 //  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MakeOrderPage()));
-                GeneralServices().oderpressed(_offer.text,_details.text);
-                },
-                child: Container(
-                  width: 130,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: Colors.cyan,
-                      border: Border.all(color: Colors.grey, width: 2),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                    child: Text(
-                      'Weka Oda',
-                      style: TextStyle(
-                          fontSize: ConstantsColors().textSizeOne,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700),
-                    ),
+                GeneralServices().oderpressed(
+                    _offer.text, _details.text, 
+                    // _selectedbidhaa.toString()
+                    'tets'
+                    );
+                    print(_selectedbidhaa);
+              },
+              child: Container(
+                width: 130,
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.cyan,
+                    border: Border.all(color: Colors.grey, width: 2),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Center(
+                  child: Text(
+                    'Weka Oda',
+                    style: TextStyle(
+                        fontSize: ConstantsColors().textSizeOne,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
-         ),
+            ),
+          ),
         ],
       ),
     );

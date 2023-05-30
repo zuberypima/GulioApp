@@ -25,9 +25,9 @@ class GeneralServices {
     });
   }
 
-  oderpressed(String offered, String detaisl) {
+  oderpressed(String offered, String detaisl,String bidhaa) {
     return orderpresed.doc(user!.email).collection('OrderPres').add({
-      'Selected': "Bidhaa ilio chaguliwa",
+      'Selected':bidhaa,
       "ofa": offered,
       "Maelezo": detaisl,
       "Buyer":user!.email,

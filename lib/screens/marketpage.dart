@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gulio/providers/userdata.dart';
 import 'package:gulio/screens/makeoderscreen.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/productcard.dart';
+import 'package:provider/provider.dart';
 
 class MarketPage extends StatefulWidget {
   const MarketPage({super.key});
@@ -68,6 +70,10 @@ class _MarketPageState extends State<MarketPage> {
                           title: Text(data['Bei']),
                           subtitle: Text(data['Kipimo']),
                           trailing:ElevatedButton(onPressed: (){
+                            
+                             // UserDetails().bidhaaname(data['Bei']);
+                             Provider.of<UserDetails>(context,listen:false).bidhaaname(data['Bei']);
+                            
                             Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MakeOrderPage()));
                           }, child:Text('Oda'))
                         ),
