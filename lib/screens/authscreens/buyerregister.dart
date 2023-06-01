@@ -257,7 +257,7 @@ class _BuyerRegPageState extends State<BuyerRegPage> {
                     setState(() {
                       _isLoading = true;
                     }); 
-                    await AuthFunction().signUp(_firstName,_lastName,_email,_phonenumber,
+                    await AuthFunction().signUp( context,_firstName,_lastName,_email,_phonenumber,
                        _password,'Buyer','Tanzania');
 
                    // _loadingIndicator(_isLoading);

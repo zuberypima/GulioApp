@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gulio/screens/buyerhome.dart';
 import 'package:gulio/screens/farmerhome.dart';
+import 'package:gulio/screens/selerscreen.dart';
 
 class AuthFunction {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -52,14 +53,26 @@ class AuthFunction {
   }
 
   // User sign up first time;
-  signUp(String firstName, lastName,email,phonenumber, password,userrole, userlocation,
+Future<void>  signUp( BuildContext context,String firstName, lastName, email,phonenumber, password,userrole, userlocation,
       ) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
       userDataCollections(
-          firstName, lastName, phonenumber, email, userrole, userlocation);
+          firstName, lastName,email,phonenumber, userrole, userlocation);
+          if (userCredential !=null){
+            // String? userRole = await getUserRole(auth.currentUser!.email.toString());
+        if (userrole == 'Mkulima') {
+          // Navigator.pushReplacementNamed(context, '/admin_screen');
+            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const FarmerPage()));
+        } else if (userrole == 'Buyer') {
+          //Navigator.pushReplacementNamed(context, '/user_screen');
+            // Navigator.of(context)
+          //.push(MaterialPageRoute(builder: (context) => BuyerHomePage()));
+           Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const BuyerHomePage()));
+        }
+          }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -90,4 +103,7 @@ class AuthFunction {
       });
     }
   }
+// homepage (){
+//   Navigator.of(context as BuildContext).push(MaterialPageRoute(builder: (context)=>const SelerScreen()));
+// }  
 }
