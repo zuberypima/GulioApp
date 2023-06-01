@@ -260,7 +260,7 @@ class _FarmerRegPageState extends State<FarmerRegPage> {
                   //  _loadingIndicator(_isLoading);
                    // await signUp(_firstName, _lastName, _phonenumber, _email,
                        // _password,'Tanzania','Mkulima');
-                       AuthFunction().signUp(_firstName,_lastName,_phonenumber,_email,
+                    await AuthFunction().signUp(_firstName,_lastName,_email,_phonenumber,
                        _password,'Mkulima','Tanzania');
                     //setState(() {
                      // _isLoading = false;
