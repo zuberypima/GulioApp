@@ -30,6 +30,7 @@ class _FarmerRegPageState extends State<FarmerRegPage> {
     User? user = FirebaseAuth.instance.currentUser;
 
     bool _isLoading = false;
+
     return Scaffold(
       // backgroundColor: ConstantsColors().mainColor(),
       appBar: AppBar(
@@ -254,24 +255,26 @@ class _FarmerRegPageState extends State<FarmerRegPage> {
                 child: InkWell(
                   onTap: () async {
                     // await AuthFunction().signUp(_firstName,_lastName,_phonenumber,_email,_password,'Tanzaia');
-                  //  setState(() {
-                   //   _isLoading = true;
-                   // });
-                  //  _loadingIndicator(_isLoading);
-                   // await signUp(_firstName, _lastName, _phonenumber, _email,
-                       // _password,'Tanzania','Mkulima');
-                      
-                              setState(() {
-                               _isLoading = true;
-                              });
-                    await AuthFunction().signUp( context,_firstName,_lastName,_email,_phonenumber,
-                       _password,'Mkulima','Tanzania');
-                              setState(() {
-                               _isLoading = false;
-                                });
-                    //setState(() {
-                     // _isLoading = false;
-                   // });
+                     setState(() {
+                       _isLoading = true;
+                     });
+                     _loadingIndicator(_isLoading);
+                    // await signUp(_firstName, _lastName, _phonenumber, _email,
+                    // _password,'Tanzania','Mkulima');
+
+                        await AuthFunction().signUp(
+                            context,
+                            _firstName,
+                            _lastName,
+                            _email,
+                            _phonenumber,
+                            _password,
+                            'Mkulima',
+                            'Tanzania');
+
+                    setState(() {
+                     _isLoading = false;
+                     });
                   },
                   child: Container(
                     width: 130,
@@ -299,23 +302,16 @@ class _FarmerRegPageState extends State<FarmerRegPage> {
     );
   }
 
-  signUp(
-    String firstName,
-    lastName,
-    phonenumber,
-    email,
-    password,
-    userlocation,
-    role
-  ) async {
+  signUp(String firstName, lastName, phonenumber, email, password, userlocation,
+      role) async {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
-     await userDataCollections(
+      await userDataCollections(
           firstName, lastName, phonenumber, email, role, userlocation);
-           Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SelecteCropPage()));
-
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => SelecteCropPage()));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -327,7 +323,7 @@ class _FarmerRegPageState extends State<FarmerRegPage> {
     }
   }
 
-  userDataCollections(String _firstName,_lastName, _email, _phonenumber,
+  userDataCollections(String _firstName, _lastName, _email, _phonenumber,
       _userrole, userlocation) async {
     User? userAuth = auth.currentUser;
     if (userAuth != null) {
