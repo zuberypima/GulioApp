@@ -1,17 +1,42 @@
+// ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gulio/screens/authscreens/autfunctions.dart';
 import 'package:gulio/screens/select_crop_page.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 
+class BuyerRegPage extends StatefulWidget {
+  BuyerRegPage({Key? key}) : super(key: key);
 
-class BuyerRegPage extends StatelessWidget {
-  const BuyerRegPage({Key? key}) : super(key: key);
+  @override
+  State<BuyerRegPage> createState() => _BuyerRegPageState();
+}
+
+class _BuyerRegPageState extends State<BuyerRegPage> {
+  // User authUser =User
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
+    String _firstName = '',
+        _lastName = '',
+        _phonenumber = '',
+        _email = '',
+        _password = '';
+    User? user = FirebaseAuth.instance.currentUser;
+
+    bool _isLoading = false;
     return Scaffold(
       // backgroundColor: ConstantsColors().mainColor(),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: ConstantsColors().mainColor(),
+        title: Text('Usajili wa Mfanyabiashara'),
+      ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
         child: ListView(
@@ -24,7 +49,7 @@ class BuyerRegPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
                     child: Text(
-                      'First Name',
+                      'Jina la Kwanza',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -35,12 +60,15 @@ class BuyerRegPage extends StatelessWidget {
                     height: 45,
                     color: Colors.white,
                     child: TextFormField(
+                      onChanged: (value) {
+                        _firstName = value;
+                      },
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(width: 2)),
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(width: 2)),
-                        hintText: 'First Name',
+                        hintText: 'Juma ',
                       ),
                     ),
                   ),
@@ -55,7 +83,7 @@ class BuyerRegPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
                     child: Text(
-                      'Last Name',
+                      'Jina la Mwisho',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -66,12 +94,15 @@ class BuyerRegPage extends StatelessWidget {
                     height: 45,
                     color: Colors.white,
                     child: TextFormField(
+                      onChanged: (value) {
+                        _lastName = value;
+                      },
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(width: 2)),
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(width: 2)),
-                        hintText: 'Last Name',
+                        hintText: 'Kilungi',
                       ),
                     ),
                   ),
@@ -97,70 +128,8 @@ class BuyerRegPage extends StatelessWidget {
                     height: 45,
                     color: Colors.white,
                     child: TextFormField(
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        hintText: 'Email',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
-                    child: Text(
-                      'Phone Number',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 45,
-                    color: Colors.white,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        hintText: '+255 67 890 786',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
-                    child: Text(
-                      'Wilaya',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 45,
-                    color: Colors.white,
-                    child: TextFormField(
                       onChanged: (value) {
-                        
+                        _email = value;
                       },
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
@@ -182,7 +151,7 @@ class BuyerRegPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
                     child: Text(
-                      'Mkoa',
+                      'Number ya Simu',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -193,12 +162,82 @@ class BuyerRegPage extends StatelessWidget {
                     height: 45,
                     color: Colors.white,
                     child: TextFormField(
+                      onChanged: (value) {
+                        _phonenumber = value;
+                      },
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(width: 2)),
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(width: 2)),
-                        hintText: 'eg.Tanga',
+                        hintText: '+255 67 890 786',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
+                    child: Text(
+                      'Neno la Siri',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 45,
+                    color: Colors.white,
+                    child: TextFormField(
+                      obscureText: true,
+                      onChanged: (value) {
+                        _password = value;
+                      },
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 2)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 2)),
+                        hintText: '**********',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
+                    child: Text(
+                      'Rudia Neno la Siri',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 45,
+                    color: Colors.white,
+                    child: TextFormField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 2)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 2)),
+                        hintText: '******',
                       ),
                     ),
                   ),
@@ -210,13 +249,21 @@ class BuyerRegPage extends StatelessWidget {
               child: Center(
                   child: InkWell(
                 onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SelecteCropPage()));
+                  // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SelecteCropPage()));
                 },
                 child: InkWell(
-                  onTap: () {
-                    // AuthFunction().signUp('', '');
+                  onTap: () async {
+                    // await AuthFunction().signUp(_firstName,_lastName,_phonenumber,_email,_password,'Tanzaia');
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    _loadingIndicator(_isLoading);
+                    await signUp(_firstName, _lastName, _phonenumber, _email,
+                        _password,'Tanzania','Buyer');
+                    setState(() {
+                      _isLoading = false;
+                    });
                   },
-                  
                   child: Container(
                     width: 130,
                     height: 40,
@@ -241,5 +288,96 @@ class BuyerRegPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  signUp(
+    String firstName,
+    lastName,
+    phonenumber,
+    email,
+    password,
+    userlocation,
+    role
+  ) async {
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+     await userDataCollections(
+          firstName, lastName, phonenumber, email, role, userlocation);
+           Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SelecteCropPage()));
+
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  userDataCollections(String _firstName, String _lastName, _email, _phonenumber,
+      _userrole, userlocation) async {
+    User? userAuth = auth.currentUser;
+    if (userAuth != null) {
+      await _firestore.collection('Users').doc(userAuth.email).set({
+        "name": "$_firstName $_lastName",
+        "email": _email,
+        "phone": _phonenumber,
+        "userrole": _userrole,
+        "location": userlocation,
+        'Crops': 'Mazao 1'
+      });
+    }
+  }
+
+  _loadingIndicator(bool isactive) {
+    if (isactive) {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Tafadhali Subiri'),
+            content: Container(
+              height: MediaQuery.of(context).size.height / 5,
+              child: Center(
+                  child: CircularProgressIndicator(
+                color: ConstantsColors().mainColor(),
+              )),
+            ),
+            actions: [
+              TextButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Tafadhali Subiri'),
+            content: Container(
+              child: Text("Please check your conection"),
+            ),
+            actions: [
+              TextButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

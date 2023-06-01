@@ -259,7 +259,7 @@ class _FarmerRegPageState extends State<FarmerRegPage> {
                     });
                     _loadingIndicator(_isLoading);
                     await signUp(_firstName, _lastName, _phonenumber, _email,
-                        _password, 'Tanzania');
+                        _password,'Tanzania','Mkulima');
                     setState(() {
                       _isLoading = false;
                     });
@@ -297,13 +297,14 @@ class _FarmerRegPageState extends State<FarmerRegPage> {
     email,
     password,
     userlocation,
+    role
   ) async {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
      await userDataCollections(
-          firstName, lastName, phonenumber, email, 'Mkulima', userlocation);
+          firstName, lastName, phonenumber, email, role, userlocation);
            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SelecteCropPage()));
 
     } on FirebaseAuthException catch (e) {

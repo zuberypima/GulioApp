@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gulio/providers/userdata.dart';
 import 'package:gulio/screens/authscreens/accounttypepage.dart';
 import 'package:gulio/screens/authscreens/loginpage.dart';
-import 'package:gulio/screens/homepage.dart';
+import 'package:gulio/screens/farmerhome.dart';
 import 'package:gulio/screens/orders.dart';
 import 'package:gulio/screens/postScreen.dart';
 import 'package:gulio/screens/profilescreen.dart';
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: 'login',
       routes: {
-        '/':(context)=> HomePage(),
+        '/':(context)=> FarmerPage(),
         'profile':(context)=>ProfileScreen(),
         'postscreen':(context) => PostPage(),
         'cropchoice':(context)=>SelecteCropPage(),

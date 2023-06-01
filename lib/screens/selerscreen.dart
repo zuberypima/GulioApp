@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gulio/screens/marketpage.dart';
 import 'package:gulio/screens/postScreen.dart';
@@ -8,16 +9,15 @@ import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/homegridIcon.dart';
 import 'package:gulio/widgets/navdrawer.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class SelerScreen extends StatefulWidget {
+  const SelerScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<SelerScreen> createState() => _SelerScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-
- 
+class _SelerScreenState extends State<SelerScreen> {
+User? user =FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors

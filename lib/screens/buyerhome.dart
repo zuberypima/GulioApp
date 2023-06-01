@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gulio/screens/Screenhome.dart';
+import 'package:gulio/screens/buyerscreen.dart';
+import 'package:gulio/screens/selerscreen.dart';
 import 'package:gulio/screens/marketpage.dart';
 import 'package:gulio/screens/orders.dart';
 import 'package:gulio/screens/postScreen.dart';
@@ -10,24 +12,25 @@ import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/homegridIcon.dart';
 import 'package:gulio/widgets/navdrawer.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class BuyerHomePage extends StatefulWidget {
+  const BuyerHomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<BuyerHomePage> createState() => _BuyerHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _BuyerHomePageState extends State<BuyerHomePage> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [HomeScreen(), MarketPage(), Orders(),ProfileScreen()];
-
+  //final List<Widget> _selerpages = [SelerScreen(), MarketPage(), Orders(),ProfileScreen()];
+  final List<Widget> _buyerpages = [BuyerScreen(), MarketPage(), Orders(),ProfileScreen()];
+User? user =FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
     return SafeArea(
       child: Scaffold(
-        body: _pages[_currentIndex],
+        body:_buyerpages[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           elevation: 5,
           // ignore: prefer_const_literals_to_create_immutables

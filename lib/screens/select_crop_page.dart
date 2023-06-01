@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_constructors
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gulio/screens/homepage.dart';
+import 'package:gulio/screens/farmerhome.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/cropcard.dart';
 
@@ -68,7 +68,7 @@ class _SelecteCropPageState extends State<SelecteCropPage> {
             ),
             InkWell(
               onTap: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>FarmerPage()));
               },
               child: Container(
                 width: 130,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gulio/screens/authscreens/accounttypepage.dart';
 import 'package:gulio/screens/authscreens/autfunctions.dart';
-import 'package:gulio/screens/homepage.dart';
+import 'package:gulio/screens/farmerhome.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/formfildone.dart';
 
@@ -64,8 +64,8 @@ class _LoginPageState extends State<LoginPage> {
               });
               try {
                 await AuthFunction()
-                    // .login(context, 'test@g.co','qq1234');
-                    .login(context, _email.text, _password.text);
+                     .login(context, 'test2@g.co','qq1234');
+                    // .login(context, _email.text, _password.text);
               } catch (e) {
                
                 print(e);
