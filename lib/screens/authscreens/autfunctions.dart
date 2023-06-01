@@ -52,8 +52,8 @@ class AuthFunction {
   }
 
   // User sign up first time;
-  signUp(String firstName, lastName, phonenumber, email, password, userlocation,
-      userrole) async {
+  signUp(String firstName, lastName,email,phonenumber, password,userrole, userlocation,
+      ) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -71,7 +71,7 @@ class AuthFunction {
     }
   }
 
-  userDataCollections(String _firstName, String _lastName, _email, _phonenumber,
+  userDataCollections(String _firstName,_lastName, _email, _phonenumber,
       _userrole, userlocation) async {
     User? userAuth = auth.currentUser;
     if (userAuth != null) {

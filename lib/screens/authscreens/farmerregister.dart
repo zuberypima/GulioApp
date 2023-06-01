@@ -254,15 +254,17 @@ class _FarmerRegPageState extends State<FarmerRegPage> {
                 child: InkWell(
                   onTap: () async {
                     // await AuthFunction().signUp(_firstName,_lastName,_phonenumber,_email,_password,'Tanzaia');
-                    setState(() {
-                      _isLoading = true;
-                    });
-                    _loadingIndicator(_isLoading);
-                    await signUp(_firstName, _lastName, _phonenumber, _email,
-                        _password,'Tanzania','Mkulima');
-                    setState(() {
-                      _isLoading = false;
-                    });
+                  //  setState(() {
+                   //   _isLoading = true;
+                   // });
+                  //  _loadingIndicator(_isLoading);
+                   // await signUp(_firstName, _lastName, _phonenumber, _email,
+                       // _password,'Tanzania','Mkulima');
+                       AuthFunction().signUp(_firstName,_lastName,_phonenumber,_email,
+                       _password,'Mkulima','Tanzania');
+                    //setState(() {
+                     // _isLoading = false;
+                   // });
                   },
                   child: Container(
                     width: 130,
@@ -318,7 +320,7 @@ class _FarmerRegPageState extends State<FarmerRegPage> {
     }
   }
 
-  userDataCollections(String _firstName, String _lastName, _email, _phonenumber,
+  userDataCollections(String _firstName,_lastName, _email, _phonenumber,
       _userrole, userlocation) async {
     User? userAuth = auth.currentUser;
     if (userAuth != null) {

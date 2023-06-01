@@ -256,13 +256,16 @@ class _BuyerRegPageState extends State<BuyerRegPage> {
                     // await AuthFunction().signUp(_firstName,_lastName,_phonenumber,_email,_password,'Tanzaia');
                     setState(() {
                       _isLoading = true;
-                    });
-                    _loadingIndicator(_isLoading);
-                    await signUp(_firstName, _lastName, _phonenumber, _email,
-                        _password,'Tanzania','Buyer');
-                    setState(() {
-                      _isLoading = false;
-                    });
+                    }); 
+                    await AuthFunction().signUp(_firstName,_lastName,_phonenumber,_email,
+                       _password,'Buyer','Tanzania');
+
+                   // _loadingIndicator(_isLoading);
+                  //  await signUp(_firstName, _lastName, _phonenumber, _email,
+                    //    _password,'Tanzania','Buyer');
+                   // setState(() {
+                   //   _isLoading = false;
+                  //  });
                   },
                   child: Container(
                     width: 130,
