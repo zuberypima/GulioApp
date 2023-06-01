@@ -19,12 +19,10 @@ class _MarketPageState extends State<MarketPage> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _userposts = FirebaseFirestore.instance
-        .collection("Users")
-        .doc(user!.email)
         .collection('Posts')
         .snapshots();
     return Scaffold(
-        backgroundColor: Colors.grey[500],
+        backgroundColor: Colors.grey[300],
         appBar: AppBar(
           backgroundColor: ConstantsColors().mainColor(),
           elevation: 0,

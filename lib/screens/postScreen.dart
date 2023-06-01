@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:gulio/screens/messages.dart';
 import 'package:gulio/services/gerneralservices.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/formfildone.dart';
@@ -98,8 +99,7 @@ class _PostPageState extends State<PostPage> {
            padding: const EdgeInsets.all(20),
            child: InkWell(
                 onTap: () {
-                  print("object");
-                 GeneralServices().postCrop(_bei,_kipimo);
+                 GeneralServices().postCrop(_bei,_kipimo,user!.email);
                 },
                 child: Container(
                   width: 130,

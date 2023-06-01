@@ -218,7 +218,7 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
                 GeneralServices().oderpressed(
                     _offer.text, _details.text, 
                     // _selectedbidhaa.toString()
-                    'tets'
+                    'test1','test2',
                     );
                     print(_selectedbidhaa);
               },
