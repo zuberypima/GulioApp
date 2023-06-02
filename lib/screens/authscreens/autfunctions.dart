@@ -90,9 +90,9 @@ Future<void>  signUp( BuildContext context,String firstName, lastName, email,pho
     if (userAuth != null) {
       await _firestore
           .collection('Users')
-          .doc(_userrole)
-          .collection(userAuth.email.toString())
-          .doc(userAuth.email)
+          .doc(_email)
+          // .collection(userAuth.email.toString())
+          // .doc(userAuth.email)
           .set({
         "name": "$_firstName $_lastName",
         "email": _email,

@@ -67,7 +67,6 @@ class _LoginPageState extends State<LoginPage> {
                       //  .login(context, 'test2@g.co','qq1234');
                      .login(context, _email.text, _password.text);
               } catch (e) {
-               
                 print(e);
               }
                setState(() {
