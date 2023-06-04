@@ -7,8 +7,6 @@ class GetAllDetails {
  final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-
-
    Future<String?> getPostDetails(String postId) async {
     DocumentSnapshot snapshot =
         await _firestore.collection('Posts').doc(postId).get();
