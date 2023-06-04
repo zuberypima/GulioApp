@@ -18,9 +18,8 @@ class _MarketPageState extends State<MarketPage> {
   final User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _userposts = FirebaseFirestore.instance
-        .collection('Posts')
-        .snapshots();
+    final Stream<QuerySnapshot> _userposts =
+        FirebaseFirestore.instance.collection('Posts').snapshots();
     return Scaffold(
         backgroundColor: Colors.grey[300],
         appBar: AppBar(
@@ -45,37 +44,44 @@ class _MarketPageState extends State<MarketPage> {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
                 return Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10,top:10),
+                  padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
                   child: Container(
                     height: MediaQuery.of(context).size.height / 2.5,
                     decoration: BoxDecoration(
-                      color: 
-                      Colors.white,
-                      border: Border.all( color: 
-                      Colors.white,),
-                      borderRadius: BorderRadius.circular(
-                        10
-                      )
-                    ),
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(10)),
                     child: Column(
                       children: [
                         Container(
                           height: 200,
-                          decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assets/beans.png'),
-                        )),),
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                            image: AssetImage('assets/beans.png'),
+                          )),
+                        ),
                         Divider(),
                         ListTile(
-                          title: Text(data['Bei']),
-                          subtitle: Text(data['Kipimo']),
-                          trailing:ElevatedButton(onPressed: (){
-                            
-                             // UserDetails().bidhaaname(data['Bei']);
-                             Provider.of<UserDetails>(context,listen:false).bidhaaname(data['Bei']);
-                            
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MakeOrderPage()));
-                          }, child:Text('Oda'))
-                        ),
-                        
+                            title: Text(data['Bei']),
+                            subtitle: Text(data['Kipimo']),
+                            trailing: ElevatedButton(
+                                onPressed: () {
+                                  // UserDetails().bidhaaname(data['Bei']);
+                                  Provider.of<UserDetails>(context,
+                                          listen: false)
+                                      .bidhaaname(data['Bei']);
+
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => MakeOrderPage(
+                                        selerphone: '',
+                                            location: '',
+                                            price: '',
+                                            zao: '',
+                                          )));
+                                },
+                                child: Text('Oda'))),
                       ],
                     ),
                   ),

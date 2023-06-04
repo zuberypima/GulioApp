@@ -11,6 +11,7 @@ class ProductView extends StatefulWidget {
 
 String linki =
     'https://st.depositphotos.com/2258315/4277/i/950/depositphotos_42770869-stock-photo-harvesting-carrots.jpg';
+
 class _ProductViewState extends State<ProductView> {
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,6 @@ class _ProductViewState extends State<ProductView> {
               color: Colors.grey,
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 30),
             child: Row(
@@ -138,31 +138,37 @@ class _ProductViewState extends State<ProductView> {
               color: Colors.grey,
             ),
           ),
-           Padding(
-           padding: const EdgeInsets.all(20),
-           child: InkWell(
-                onTap: () {
-                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MakeOrderPage()));
-                },
-                child: Container(
-                  width: 130,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: Colors.cyan,
-                      border: Border.all(color: Colors.grey, width: 2),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                    child: Text(
-                      'Weka Oda',
-                      style: TextStyle(
-                          fontSize: ConstantsColors().textSizeOne,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700),
-                    ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => MakeOrderPage(
+                          location: '',
+                          price: '',
+                          selerphone: '',
+                          zao: '',
+                        )));
+              },
+              child: Container(
+                width: 130,
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.cyan,
+                    border: Border.all(color: Colors.grey, width: 2),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Center(
+                  child: Text(
+                    'Weka Oda',
+                    style: TextStyle(
+                        fontSize: ConstantsColors().textSizeOne,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
-         ),
+            ),
+          ),
         ],
       ),
     );

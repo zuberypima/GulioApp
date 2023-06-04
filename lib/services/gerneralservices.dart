@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,11 +11,15 @@ class GeneralServices {
   CollectionReference messages = FirebaseFirestore.instance.collection('Users');
   CollectionReference orderpresed =
       FirebaseFirestore.instance.collection('Users');
-  postCrop(String bei, String kipimo,mkulima) {
+
+      
+  postCrop(String bei, String kipimo,mkulima,) {
     return cropsposted.add({
       'Bei': bei,
       'Kipimo': kipimo,
-      'Mkulima':mkulima
+      'Mkulima':mkulima,
+      // 'phone':phone,
+      // 'Location':location,
     });
   }
 
@@ -34,5 +40,16 @@ class GeneralServices {
       "Buyer":user!.email,
       "seller":seller,
     });
+  }
+
+
+  Future<String?> getPostDetails(String postId) async {
+    QuerySnapshot<Object?> snapshot =
+        await cropsposted.where('',isEqualTo: '').get();
+    // if (snapshot.exists) {
+    //   Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    //   return data['userrole'] as String?;
+    // }
+    return null;
   }
 }

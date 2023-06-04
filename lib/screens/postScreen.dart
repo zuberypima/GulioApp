@@ -99,7 +99,7 @@ class _PostPageState extends State<PostPage> {
            padding: const EdgeInsets.all(20),
            child: InkWell(
                 onTap: () {
-                 GeneralServices().postCrop(_bei,_kipimo,user!.email);
+                 GeneralServices().postCrop(_bei,_kipimo,user!.email,);
                 },
                 child: Container(
                   width: 130,
