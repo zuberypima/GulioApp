@@ -12,7 +12,7 @@ class GeneralServices {
       FirebaseFirestore.instance.collection('Posts');
   CollectionReference messages = FirebaseFirestore.instance.collection('Users');
   CollectionReference orderpresed =
-      FirebaseFirestore.instance.collection('Users');
+      FirebaseFirestore.instance.collection('OrderPres');
  
 
 
@@ -41,13 +41,14 @@ class GeneralServices {
     });
   }
 
-  oderpressed(String offered, String detaisl, String bidhaa, seller) {
-    return orderpresed.doc(user!.email).collection('OrderPres').add({
-      'Selected': bidhaa,
+  oderpressed(String offered, String detaisl,seller) {
+    return orderpresed.add({
+      //'Selected': bidhaa,
       "ofa": offered,
       "Maelezo": detaisl,
-      "Buyer": user!.email,
       "seller": seller,
+      "Buyer": user!.email,
+
     });
   }
 

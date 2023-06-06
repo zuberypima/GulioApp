@@ -1,17 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gulio/providers/userdata.dart';
+import 'package:gulio/screens/messages.dart';
 import 'package:gulio/services/gerneralservices.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/displayedcrop.dart';
 import 'package:provider/provider.dart';
 
 class MakeOrderPage extends StatefulWidget {
-  String selerphone;
-  String price;
-  String zao;
-  String location;
-  MakeOrderPage({super.key,required this.selerphone,required this.price,required this.zao,required this.location});
+  //String selerphone;
+  //String price;
+  //String zao;
+  String seleremail;
+
+  MakeOrderPage({super.key,required this.seleremail});
 
   @override
   State<MakeOrderPage> createState() => _MakeOrderPageState();
@@ -19,7 +22,7 @@ class MakeOrderPage extends StatefulWidget {
 
 TextEditingController _offer = TextEditingController();
 TextEditingController _details = TextEditingController();
-
+ final User? user = FirebaseAuth.instance.currentUser;
 class _MakeOrderPageState extends State<MakeOrderPage> {
   @override
   Widget build(BuildContext context) {
@@ -87,7 +90,7 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
                 GeneralServices().oderpressed(
                     _offer.text, _details.text, 
                     // _selectedbidhaa.toString()
-                    'test1','test2',
+                    widget.seleremail,
                     );
                     print(_selectedbidhaa);
               },

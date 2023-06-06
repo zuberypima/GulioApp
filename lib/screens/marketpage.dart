@@ -59,7 +59,8 @@ class _MarketPageState extends State<MarketPage> {
                           height: 200,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                            image: AssetImage('assets/beans.png'),
+                            // image: AssetImage('assets/beans.png'),
+                            image: NetworkImage(data['image'].toString())
                           )),
                         ),
                         Divider(),
@@ -75,10 +76,10 @@ class _MarketPageState extends State<MarketPage> {
 
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => MakeOrderPage(
-                                        selerphone: '',
-                                            location: '',
-                                            price: '',
-                                            zao: '',
+                                       // selerphone: '',
+                                            seleremail:  data['Mkulima'],
+                                        //    price:''
+                                         //   zao: '',
                                           )));
                                 },
                                 child: Text('Oda'))),

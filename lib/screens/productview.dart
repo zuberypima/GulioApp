@@ -144,10 +144,7 @@ class _ProductViewState extends State<ProductView> {
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => MakeOrderPage(
-                          location: '',
-                          price: '',
-                          selerphone: '',
-                          zao: '',
+                          seleremail: '',
                         )));
               },
               child: Container(
