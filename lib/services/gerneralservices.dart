@@ -46,9 +46,8 @@ class GeneralServices {
       //'Selected': bidhaa,
       "ofa": offered,
       "Maelezo": detaisl,
-      "seller": seller,
-      "Buyer": user!.email,
-
+      "Reciver": seller,
+      "Sender": user!.email,
     });
   }
 

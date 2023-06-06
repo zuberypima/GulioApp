@@ -14,7 +14,7 @@ class MakeOrderPage extends StatefulWidget {
   //String zao;
   String seleremail;
 
-  MakeOrderPage({super.key,required this.seleremail});
+  MakeOrderPage({super.key, required this.seleremail});
 
   @override
   State<MakeOrderPage> createState() => _MakeOrderPageState();
@@ -22,41 +22,46 @@ class MakeOrderPage extends StatefulWidget {
 
 TextEditingController _offer = TextEditingController();
 TextEditingController _details = TextEditingController();
- final User? user = FirebaseAuth.instance.currentUser;
+final User? user = FirebaseAuth.instance.currentUser;
+bool isLoading = false;
+
 class _MakeOrderPageState extends State<MakeOrderPage> {
   @override
   Widget build(BuildContext context) {
     final _selectedbidhaa = Provider.of<UserDetails>(context);
-       CollectionReference selectedPost = FirebaseFirestore.instance.collection('Posts');
+    CollectionReference selectedPost =
+        FirebaseFirestore.instance.collection('Posts');
 
     //     QuerySnapshot querySnapshot = await firestore
     // .collection('your_collection_name')
     // .where(fieldName, isEqualTo: fieldValue)
     // .limit(1)
     // .get();
-   
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ConstantsColors().mainColor(),
         elevation: 0,
       ),
       body: ListView(
-        children: [     
-         DisplayedCrop(farmeremail:'Bei',), // DisplayedCrop(),
-       
+        children: [
+          DisplayedCrop(
+            farmeremail: 'Bei',
+          ), // DisplayedCrop(),
+
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Ofa Yangu',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                       color: Colors.blueGrey),
                 ),
-                Divider(),
+                const Divider(),
                 TextFormField(
                   controller: _offer,
                 ),
@@ -68,14 +73,14 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Maelezo mafupi',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                       color: Colors.blueGrey),
                 ),
-                Divider(),
+                const Divider(),
                 TextFormField(
                   controller: _details,
                 ),
@@ -85,32 +90,39 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
           Padding(
             padding: const EdgeInsets.all(20),
             child: InkWell(
-              onTap: () {
-                //  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MakeOrderPage()));
-                GeneralServices().oderpressed(
-                    _offer.text, _details.text, 
-                    // _selectedbidhaa.toString()
-                    widget.seleremail,
-                    );
-                    print(_selectedbidhaa);
+              onTap: () async {
+                setState(() {
+                  isLoading = true;
+                });
+                await GeneralServices().oderpressed(
+                  _offer.text,
+                  _details.text,
+                  widget.seleremail,
+                );
+
+                setState(() {
+                  isLoading = false;
+                });
               },
-              child: Container(
-                width: 130,
-                height: 40,
-                decoration: BoxDecoration(
-                    color: Colors.cyan,
-                    border: Border.all(color: Colors.grey, width: 2),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Center(
-                  child: Text(
-                    'Weka Oda',
-                    style: TextStyle(
-                        fontSize: ConstantsColors().textSizeOne,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ),
+              child: 
+                   Container(
+                      width: 130,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Colors.cyan,
+                          border: Border.all(color: Colors.grey, width: 2),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child:isLoading
+                  ? CircularProgressIndicator(): Text(
+                          'Weka Oda',
+                          style: TextStyle(
+                              fontSize: ConstantsColors().textSizeOne,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                    ),
             ),
           ),
         ],

@@ -102,9 +102,7 @@ class _PostPageState extends State<PostPage> {
                 TextFormField(
                   controller: _bei,
                   onChanged: (value) {
-                    // setState(() {
-                    //   _bei = value;
-                    // });
+                  
                   },
                 ),
               ],
@@ -125,9 +123,7 @@ class _PostPageState extends State<PostPage> {
                 TextFormField(
                   controller: _kipimo,
                   onChanged: (value) {
-                    // setState(() {
-                    //   _kipimo = value;
-                    // });
+                   
                   },
                 ),
               ],

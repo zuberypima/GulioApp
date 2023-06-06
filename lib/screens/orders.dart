@@ -14,12 +14,10 @@ class _OrdersState extends State<Orders> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _odersStream = FirebaseFirestore.instance
-        .collection('Users')
-        .doc(user!.email)
-        .collection('OrderPres')
+        .collection('OrderPres').where('Reciver',isEqualTo: user!.email)
         .snapshots();
 
-    return Scaffold(
+  return Scaffold(
         appBar: AppBar(
           backgroundColor: ConstantsColors().mainColor(),
           title: Text('Orders'),
@@ -41,7 +39,7 @@ class _OrdersState extends State<Orders> {
                 return Card(
                   child: ListTile(
                     minVerticalPadding: 5.0,
-                    title: Text(data['Buyer']),
+                    title: Text(data['Sender']),
                     subtitle: Row(
                       children: [
                         Text('Bei'),
