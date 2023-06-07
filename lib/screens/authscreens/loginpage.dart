@@ -64,8 +64,8 @@ class _LoginPageState extends State<LoginPage> {
               });
               try {
                 await AuthFunction()
-                    .login(context, 'test@g.co','qq1234');
-                    // .login(context, _email.text, _password.text);
+                    //.login(context, 'test@g.co','qq1234');
+                    .login(context, _email.text, _password.text);
               } catch (e) {
                 print(e);
               }

@@ -7,6 +7,7 @@ import 'package:gulio/screens/marketpage.dart';
 import 'package:gulio/screens/orders.dart';
 import 'package:gulio/screens/postScreen.dart';
 import 'package:gulio/screens/profilescreen.dart';
+import 'package:gulio/screens/sellerorderview.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/homegridIcon.dart';
 import 'package:gulio/widgets/navdrawer.dart';
@@ -21,8 +22,8 @@ class FarmerPage extends StatefulWidget {
 class _FarmerPageState extends State<FarmerPage> {
   int _currentIndex = 0;
 
-  final List<Widget> _selerpages = [SelerScreen(), MarketPage(), Orders(),ProfileScreen()];
-  final List<Widget> _buyerpages = [SelerScreen(), MarketPage(), Orders(),ProfileScreen()];
+  final List<Widget> _selerpages = [SelerScreen(), MarketPage(), SelerOrders(),ProfileScreen()];
+ 
 User? user =FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {

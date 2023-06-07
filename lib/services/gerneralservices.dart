@@ -10,11 +10,10 @@ class GeneralServices {
   User? user = FirebaseAuth.instance.currentUser;
   CollectionReference cropsposted =
       FirebaseFirestore.instance.collection('Posts');
-  CollectionReference messages = FirebaseFirestore.instance.collection('Users');
+  CollectionReference messages =
+      FirebaseFirestore.instance.collection('Messages');
   CollectionReference orderpresed =
       FirebaseFirestore.instance.collection('OrderPres');
- 
-
 
   postCrop(
     String bei,
@@ -32,16 +31,17 @@ class GeneralServices {
     });
   }
 
-  sendSMS(String body) {
-    return messages.doc(user!.email).collection('Messages').add({
-      'Sender': user!.email,
-      'Receiver': 'Receiver',
+  sendSMS(String body, reciver, sender) {
+    return messages.add({
+      // 'Sender': user!.email,
+      'Receiver': reciver,
+      'Sender': sender,
       'body': body,
       'Date': 'Test Date',
     });
   }
 
-  oderpressed(String offered, String detaisl,seller) {
+  oderpressed(String offered, String detaisl, seller) {
     return orderpresed.add({
       //'Selected': bidhaa,
       "ofa": offered,

@@ -5,7 +5,8 @@ import 'package:gulio/services/gerneralservices.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 
 class Messages extends StatefulWidget {
-  const Messages({super.key});
+  String reciver;
+  Messages({super.key,required this.reciver});
 
   @override
   State<Messages> createState() => _MessagesState();
@@ -18,9 +19,7 @@ class _MessagesState extends State<Messages> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-        .collection('Users')
-        .doc(user!.email)
-        .collection('Messages')
+        .collection('Messages').where('Receiver', isEqualTo: widget.reciver)
         .snapshots();
 
     return Scaffold(
@@ -105,7 +104,7 @@ class _MessagesState extends State<Messages> {
                 child: Center(
                   child: IconButton(
                     onPressed: () {
-                      GeneralServices().sendSMS(_messagebody.text);
+                      GeneralServices().sendSMS(_messagebody.text,widget.reciver,user!.email);
                     },
                     icon: Icon(
                       Icons.send,

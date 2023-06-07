@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         'cropchoice':(context)=>SelecteCropPage(),
         'login':(context) => LoginPage(),
         'register':(context) =>SelectAccountType(),
-        'order':(context) => Orders(),
+        // 'order':(context) => Orders(),
       },
     ) ,
     );
