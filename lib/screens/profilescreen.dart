@@ -20,6 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         elevation: 0,
         backgroundColor: ConstantsColors().mainColor(),
         title: Text("Profile"),
+        automaticallyImplyLeading: false,
       ),
       body: ListView(
         children: [

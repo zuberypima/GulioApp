@@ -26,6 +26,7 @@ class _MarketPageState extends State<MarketPage> {
           backgroundColor: ConstantsColors().mainColor(),
           elevation: 0,
           title: Center(child: Text('Sokoni')),
+          automaticallyImplyLeading: false,
         ),
         body: StreamBuilder<QuerySnapshot>(
           stream: _userposts,
@@ -59,27 +60,24 @@ class _MarketPageState extends State<MarketPage> {
                           height: 200,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                            // image: AssetImage('assets/beans.png'),
-                            image: NetworkImage(data['image'].toString())
-                          )),
+                                
+                                  image:
+                                      NetworkImage(data['image'].toString()))),
                         ),
                         Divider(),
                         ListTile(
-                            title: Text(data['Bei']),
-                            subtitle: Text(data['Kipimo']),
+                            title: Text(data['Kipimo']+': '+data['Bei']+ "Tsh"),
+                            subtitle: Text(data['Kipimo']+' '+"zilizopo"+": "+data['Stock']),
                             trailing: ElevatedButton(
                                 onPressed: () {
-                                  // UserDetails().bidhaaname(data['Bei']);
                                   Provider.of<UserDetails>(context,
                                           listen: false)
                                       .bidhaaname(data['Bei']);
 
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => MakeOrderPage(
-                                       // selerphone: '',
-                                            seleremail:  data['Mkulima'],
-                                        //    price:''
-                                         //   zao: '',
+                                            seleremail: data['Mkulima'],
+                                            bei:data['Bei']
                                           )));
                                 },
                                 child: Text('Oda'))),
@@ -93,24 +91,3 @@ class _MarketPageState extends State<MarketPage> {
         ));
   }
 }
- 
-          // ProductCard(
-          //   imageUrl: 'assets/beans.png',
-          //   productlabel: 'Mahindi',
-          //   pricelable: '11000 Tsh/Kg',
-          // ),
-          // ProductCard(
-          //   imageUrl: 'assets/coffee.jpg',
-          //   productlabel: 'Kahawa',
-          //   pricelable: '11000 Tsh/Kg',
-          // ),
-          // ProductCard(
-          //   imageUrl: 'assets/watermelon.png',
-          //   productlabel: 'Mahindi',
-          //   pricelable: '11000 Tsh/Kg',
-          // ),
-          // ProductCard(
-          //   imageUrl: 'assets/tomato.png',
-          //   productlabel: 'Mahindi',
-          //   pricelable: '11000 Tsh/Kg',
-          // ),

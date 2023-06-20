@@ -5,7 +5,6 @@ import 'package:gulio/screens/postScreen.dart';
 import 'package:gulio/screens/profilescreen.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/homegridIcon.dart';
-import 'package:gulio/widgets/navdrawer.dart';
 
 class BuyerScreen extends StatefulWidget {
   const BuyerScreen({super.key});
@@ -102,9 +101,7 @@ class _BuyerScreenState extends State<BuyerScreen> {
               ),
             )
           ],
-        ),
-        // add button
-       
+        ),       
       ),
     );
   }

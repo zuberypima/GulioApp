@@ -6,7 +6,6 @@ import 'package:gulio/providers/userdata.dart';
 import 'package:gulio/screens/authscreens/accounttypepage.dart';
 import 'package:gulio/screens/authscreens/loginpage.dart';
 import 'package:gulio/screens/farmerhome.dart';
-import 'package:gulio/screens/orders.dart';
 import 'package:gulio/screens/postScreen.dart';
 import 'package:gulio/screens/profilescreen.dart';
 import 'package:gulio/screens/select_crop_page.dart';
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
       // Provider<UserDetails>(create:(context)=>UserDetails()),
       ChangeNotifierProvider<UserDetails>(create: (context)=>UserDetails())
     ],
-    child: MaterialApp(
+    child:MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: 'login',
       routes: {

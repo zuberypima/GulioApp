@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,40 +16,96 @@ class GeneralServices {
       FirebaseFirestore.instance.collection('Messages');
   CollectionReference orderpresed =
       FirebaseFirestore.instance.collection('OrderPres');
-
+  final DateTime sentTime = DateTime.now();
   postCrop(
     String bei,
-    String kipimo,
+    kipimo,
     mkulima,
+    stock,
     imageUrl,
   ) {
     return cropsposted.doc(user!.email).set({
       'Bei': bei,
       'Kipimo': kipimo,
       'Mkulima': mkulima,
+      'Stock': stock,
       'image': imageUrl
-      // 'phone':phone,
       // 'Location':location,
     });
   }
 
-  sendSMS(String body, reciver, sender) {
-    return messages.add({
-      // 'Sender': user!.email,
-      'Receiver': reciver,
-      'Sender': sender,
-      'body': body,
-      'Date': 'Test Date',
+  updateStock(
+    stock,
+  ) {
+    FirebaseFirestore.instance
+        .collection('Posts')
+        .doc('test@g.co')
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        postCrop(
+            documentSnapshot.get('Bei'),
+            documentSnapshot.get('Kipimo'),
+            documentSnapshot.get('Mkulima'),
+            // documentSnapshot.get('Stock'),
+            stock,
+            documentSnapshot.get('image'));
+      }
     });
   }
 
-  oderpressed(String offered, String detaisl, seller) {
+  sendSMS(
+    String body,
+    buyer,
+    farmer,
+    sender,
+  ) {
+    return messages.add({
+      // 'Sender': user!.email,
+      'Buyer': buyer,
+      'Farmer': farmer,
+      'body': body,
+      'Date': 'Test Date',
+      'Sender': sender,
+      'SentTime': sentTime
+    });
+  }
+
+  jamiiPost(
+    String body,
+    poster,
+  ) {
+    return FirebaseFirestore.instance
+        .collection('JamiiPosts')
+        .doc(poster + ' '+sentTime.toString())
+        .set({
+      'Poster': poster,
+      'body': body,
+      'SentTime': sentTime
+    });
+  }
+
+  commentPost(
+    String body,
+    contributer,
+  ) {
+    return FirebaseFirestore.instance
+        .collection('JamiiPosts')
+        .doc(contributer+ " "+sentTime)
+        .set({
+      'Contributer': contributer,
+      'body': body,
+      'SentTime': sentTime
+    });
+  }
+
+  oderpressed(String offered, String detaisl, seller, buyer) {
     return orderpresed.add({
       //'Selected': bidhaa,
       "ofa": offered,
       "Maelezo": detaisl,
-      "Reciver": seller,
-      "Sender": user!.email,
+      "Farmer": seller,
+      "Buyer": buyer,
     });
   }
 

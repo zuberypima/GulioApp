@@ -4,13 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gulio/screens/selerscreen.dart';
 import 'package:gulio/screens/marketpage.dart';
-import 'package:gulio/screens/orders.dart';
 import 'package:gulio/screens/postScreen.dart';
 import 'package:gulio/screens/profilescreen.dart';
 import 'package:gulio/screens/sellerorderview.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/homegridIcon.dart';
-import 'package:gulio/widgets/navdrawer.dart';
 
 class FarmerPage extends StatefulWidget {
   const FarmerPage({super.key});
@@ -56,8 +54,6 @@ User? user =FirebaseAuth.instance.currentUser;
               icon: Icon(Icons.person),
               label: 'Profile',
             ),
-
-          
           ],
         ),
       ),

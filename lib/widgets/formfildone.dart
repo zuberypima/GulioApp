@@ -18,11 +18,6 @@ class _FormFieldOneState extends State<FormFieldOne> {
       color: Colors.white,
       child: TextFormField(
          controller: widget.textContoler,
-        // onChanged: (value) {
-        
-        //   //   widget.textContoler =value;
-        //   value =widget.textContoler;
-        // },
         decoration: InputDecoration(
           enabledBorder:
               OutlineInputBorder(borderSide: BorderSide(width: 2)),

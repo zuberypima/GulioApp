@@ -20,18 +20,27 @@ File? _imageFile;
 CollectionReference cropsposted =
     FirebaseFirestore.instance.collection('Usersss');
 // String _bei = "";
-TextEditingController _bei =TextEditingController();
+TextEditingController _bei = TextEditingController();
 // String _kipimo = "";
-TextEditingController _kipimo =TextEditingController();
+TextEditingController _kipimo = TextEditingController();
+TextEditingController _stock =TextEditingController();
 bool isLoading = false;
 
+void dispose() {
+  // Clean up the controller when the widget is disposed
+  _bei.clear();
+  _kipimo.clear();
+  _stock.clear();
+}
 
- void dispose() {
-    // Clean up the controller when the widget is disposed
-    _bei.clear();
-    _kipimo.clear();
-    // super.dispose();
-  }
+String? _selectedItem;
+
+List<String> _items = [
+  'Kilogram',
+  'Debe',
+  'Gunia',
+];
+
 class _PostPageState extends State<PostPage> {
   @override
   Widget build(BuildContext context) {
@@ -101,9 +110,7 @@ class _PostPageState extends State<PostPage> {
                 ),
                 TextFormField(
                   controller: _bei,
-                  onChanged: (value) {
-                  
-                  },
+                  keyboardType: TextInputType.number,
                 ),
               ],
             ),
@@ -120,11 +127,37 @@ class _PostPageState extends State<PostPage> {
                       fontWeight: FontWeight.w500,
                       color: Colors.blueGrey),
                 ),
-                TextFormField(
-                  controller: _kipimo,
+                // TextFormField(
+                //   controller: _kipimo,
+                //   onChanged: (value) {
+
+                //   },
+                // ),
+                DropdownButton<String>(
+                  value: _selectedItem,
                   onChanged: (value) {
-                   
+                    setState(() {
+                      _selectedItem = value;
+                    });
                   },
+                  items: _items.map((String item) {
+                    return DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(item),
+                    );
+                  }).toList(),
+                ),SizedBox(height: 5,
+                ),
+                Text(
+                  'Kiasi Kilichopo',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.blueGrey),
+                ),
+                TextFormField(
+                  controller: _stock,
+                  keyboardType: TextInputType.number,
                 ),
               ],
             ),
@@ -134,20 +167,17 @@ class _PostPageState extends State<PostPage> {
             child: InkWell(
               onTap: () async {
                 setState(() {
-                  isLoading = true; // Show loading indicator
-                 
+                  isLoading = true; 
                 });
                 String imageUrl =
                     await GeneralServices().uploadImageToFirebase(_imageFile!);
                 GeneralServices()
-                    .postCrop(_bei.text, _kipimo.text, user!.email, imageUrl);
+                    .postCrop(_bei.text,_selectedItem.toString(), user!.email,_stock.text, imageUrl);
 
                 setState(() {
                   isLoading = false;
-                   dispose(); 
-                   // Hide loading indicator
+                  dispose();
                 });
-                
               },
               child: Container(
                 width: 130,
@@ -157,15 +187,15 @@ class _PostPageState extends State<PostPage> {
                     border: Border.all(color: Colors.grey, width: 2),
                     borderRadius: BorderRadius.circular(10)),
                 child: Center(
-                  child:isLoading?CircularProgressIndicator(
-                  ):Text(
-                    'Uza', 
-                    style: TextStyle(
-                        fontSize: ConstantsColors().textSizeOne,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700),
-                  )
-                ),
+                    child: isLoading
+                        ? CircularProgressIndicator()
+                        : Text(
+                            'Uza',
+                            style: TextStyle(
+                                fontSize: ConstantsColors().textSizeOne,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700),
+                          )),
               ),
             ),
           ),

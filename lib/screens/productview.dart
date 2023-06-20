@@ -127,7 +127,7 @@ class _ProductViewState extends State<ProductView> {
                   'Location:',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                Text('Juma Mgunda',
+                Text('Tanzania',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500))
               ],
             ),
@@ -145,6 +145,7 @@ class _ProductViewState extends State<ProductView> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => MakeOrderPage(
                           seleremail: '',
+                          bei:''
                         )));
               },
               child: Container(

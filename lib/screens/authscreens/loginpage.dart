@@ -22,7 +22,6 @@ class _LoginPageState extends State<LoginPage> {
     final _password = TextEditingController();
     bool isLoading = false;
     return Scaffold(
-      // backgroundColor: ConstantsColors().mainColor(),
       backgroundColor: Colors.white,
       body: ListView(
         children: [
@@ -49,10 +48,21 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10),
-            child: FormFieldOne(
-              hintText: 'Neeo la Siri',
-              textContoler: _password,
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              height: 45,
+              color: Colors.white,
+              child: TextFormField(
+                 obscureText: true,
+                  controller: _password,
+                decoration: InputDecoration(
+                  enabledBorder:
+                      OutlineInputBorder(borderSide: BorderSide(width: 2)),
+                  focusedBorder:
+                      OutlineInputBorder(borderSide: BorderSide(width: 2)),
+                   hintText: 'Neno la Siri',
+                ),
+              ),
             ),
           ),
           Center(
@@ -64,16 +74,13 @@ class _LoginPageState extends State<LoginPage> {
               });
               try {
                 await AuthFunction()
-                    //.login(context, 'test@g.co','qq1234');
-                    .login(context, _email.text, _password.text);
+                  .login(context, 'test@g.co', 'qq1234');
+                // .login(context, _email.text, _password.text);
               } catch (e) {
-                print(e);
               }
-               setState(() {
-                  isLoading = false;
-                  _loadingIndicator(isLoading);
-                }
-                );
+              setState(() {
+                isLoading = false;
+              });
             },
             child: Container(
               width: 130,
@@ -99,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Hapana bado sijajisajili  !"),
+                const Text("Hapana bado Sijajisajili  !"),
                 TextButton(
                     onPressed: (() {
                       Navigator.of(context).push(MaterialPageRoute(
@@ -127,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
           return AlertDialog(
             title: Text('Tafadhali Subiri'),
             content: Container(
-              height: MediaQuery.of(context).size.height / 5,
+              height: MediaQuery.of(context).size.height / 7,
               child: Center(
                   child: CircularProgressIndicator(
                 color: ConstantsColors().mainColor(),

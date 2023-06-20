@@ -6,7 +6,8 @@ import 'package:gulio/utilities/constantscolors.dart';
 
 class Messages extends StatefulWidget {
   String reciver;
-  Messages({super.key,required this.reciver});
+  String pagefrom;
+  Messages({super.key, required this.reciver, required this.pagefrom});
 
   @override
   State<Messages> createState() => _MessagesState();
@@ -14,14 +15,27 @@ class Messages extends StatefulWidget {
 
 final User? user = FirebaseAuth.instance.currentUser;
 TextEditingController _messagebody = TextEditingController();
+void clearText() {
+  _messagebody.clear();
+}
 
 class _MessagesState extends State<Messages> {
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-        .collection('Messages').where('Receiver', isEqualTo: widget.reciver)
+    final Stream<QuerySnapshot> _buyesrside = FirebaseFirestore.instance
+        .collection('Messages') .orderBy('SentTime',descending: false)
+        .where('Farmer', isEqualTo: widget.reciver)
+        .where('Buyer', isEqualTo: user!.email)
+     
         .snapshots();
 
+    final Stream<QuerySnapshot> _farmerside = FirebaseFirestore.instance
+        .collection('Messages').orderBy('SentTime',descending: false) 
+        .where('Buyer', isEqualTo: widget.reciver)
+        .where('Farmer', isEqualTo: user!.email)
+        
+        .snapshots();
+  
     return Scaffold(
       backgroundColor: Colors.greenAccent[100],
       appBar: AppBar(
@@ -32,7 +46,7 @@ class _MessagesState extends State<Messages> {
       body: Stack(
         children: [
           StreamBuilder<QuerySnapshot>(
-            stream: _usersStream,
+            stream: widget.pagefrom == 'BuyerPage' ? _buyesrside : _farmerside,
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
@@ -48,23 +62,55 @@ class _MessagesState extends State<Messages> {
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
                   return Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10, right: 10, bottom: 5, top: 5),
-                    child: Flexible(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width / 2,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                topRight: Radius.circular(10))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(data['body']),
-                        ),
-                      ),
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Container(
+                      child: data['Sender'] == user!.email
+                          ? Padding(
+                            padding: const EdgeInsets.only(left: 60,right: 10),
+                            child: Container(
+                                width: MediaQuery.of(context).size.width / 2,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      width: 4,
+                                      color: Colors.grey),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        bottomLeft: Radius.circular(10),
+                                        bottomRight: Radius.circular(10))),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                          data['body'],
+                                          style: TextStyle(
+                                              color: Colors.black, fontSize: 16),
+                                        ),
+                                ),
+                              ),
+                          )
+                          : Padding(
+                            padding: const EdgeInsets.only(left: 10,right: 60),
+                            child: Container(
+                                width: MediaQuery.of(context).size.width / 2,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      width: 4,
+                                        color: Color.fromARGB(188, 77, 161, 230)),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        bottomLeft: Radius.circular(10),
+                                        bottomRight: Radius.circular(10))),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child:Text(
+                                          data['body'],
+                                          style: TextStyle(
+                                              color: Colors.black, fontSize: 16),
+                                        ),
+                                ),
+                              ),
+                          ),
                     ),
                   );
                 }).toList(),
@@ -81,7 +127,7 @@ class _MessagesState extends State<Messages> {
                   height: 45,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    color:  Colors.greenAccent[100],
+                      color: Colors.greenAccent[100],
                       border: Border.all(
                         color: Colors.indigoAccent,
                         width: 2,
@@ -91,6 +137,7 @@ class _MessagesState extends State<Messages> {
                     padding: const EdgeInsets.only(left: 10),
                     child: TextField(
                       controller: _messagebody,
+                      decoration: InputDecoration(border: InputBorder.none),
                     ),
                   )),
             ),
@@ -104,7 +151,15 @@ class _MessagesState extends State<Messages> {
                 child: Center(
                   child: IconButton(
                     onPressed: () {
-                      GeneralServices().sendSMS(_messagebody.text,widget.reciver,user!.email);
+                      if (widget.pagefrom == 'BuyerPage') {
+                        GeneralServices().sendSMS(_messagebody.text,
+                            user!.email, widget.reciver, user!.email);
+                        clearText();
+                      } else {
+                        GeneralServices().sendSMS(_messagebody.text,
+                            widget.reciver, user!.email, user!.email);
+                        clearText();
+                      }
                     },
                     icon: Icon(
                       Icons.send,

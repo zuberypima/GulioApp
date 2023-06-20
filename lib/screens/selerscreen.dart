@@ -2,12 +2,12 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gulio/screens/jamiipage.dart';
 import 'package:gulio/screens/marketpage.dart';
 import 'package:gulio/screens/postScreen.dart';
 import 'package:gulio/screens/profilescreen.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/homegridIcon.dart';
-import 'package:gulio/widgets/navdrawer.dart';
 
 class SelerScreen extends StatefulWidget {
   const SelerScreen({super.key});
@@ -95,9 +95,14 @@ User? user =FirebaseAuth.instance.currentUser;
                     iconData: Icons.shopping_cart,
                     iconLable: 'Mikopo',
                   ),
-                  GridIconOne(
-                    iconData: Icons.people,
-                    iconLable: 'Jamii',
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>JamiiPage()));
+                    },
+                    child: GridIconOne(
+                      iconData: Icons.people,
+                      iconLable: 'Jamii',
+                    ),
                   ),
                 ],
               ),

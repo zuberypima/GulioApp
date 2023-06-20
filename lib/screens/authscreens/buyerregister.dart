@@ -249,23 +249,19 @@ class _BuyerRegPageState extends State<BuyerRegPage> {
               child: Center(
                   child: InkWell(
                 onTap: () {
-                  // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SelecteCropPage()));
                 },
                 child: InkWell(
                   onTap: () async {
-                    // await AuthFunction().signUp(_firstName,_lastName,_phonenumber,_email,_password,'Tanzaia');
                     setState(() {
                       _isLoading = true;
+                        _loadingIndicator(_isLoading);
                     }); 
                     await AuthFunction().signUp( context,_firstName,_lastName,_email,_phonenumber,
                        _password,'Buyer','Tanzania');
-
-                   // _loadingIndicator(_isLoading);
-                  //  await signUp(_firstName, _lastName, _phonenumber, _email,
-                    //    _password,'Tanzania','Buyer');
-                   // setState(() {
-                   //   _isLoading = false;
-                  //  });
+                    setState(() {
+                      _isLoading = false;
+                   
+                    });
                   },
                   child: Container(
                     width: 130,
@@ -275,7 +271,7 @@ class _BuyerRegPageState extends State<BuyerRegPage> {
                         border: Border.all(color: Colors.grey, width: 2),
                         borderRadius: BorderRadius.circular(10)),
                     child: Center(
-                      child: Text(
+                      child:_isLoading?CircularProgressIndicator(): Text(
                         'Sajili',
                         style: TextStyle(
                             fontSize: ConstantsColors().textSizeOne,

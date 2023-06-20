@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 
-
 class DisplayedCrop extends StatefulWidget {
- String farmeremail;
-       DisplayedCrop({required this.farmeremail});
+  String farmeremail;
+  String bei;
+  DisplayedCrop({required this.farmeremail, required this.bei});
 
   @override
   State<DisplayedCrop> createState() => _DisplayedCropState();
@@ -36,7 +36,7 @@ class _DisplayedCropState extends State<DisplayedCrop> {
                             width: 5,
                           ),
                           Text(
-                            'Email',
+                            'Email:  ',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
@@ -92,11 +92,11 @@ class _DisplayedCropState extends State<DisplayedCrop> {
                             width: 5,
                           ),
                           Text(
-                            'Bei:',
+                            'Bei: ',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          Text('11000/Kg',
+                          Text(widget.bei,
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w500))
                         ],
@@ -148,11 +148,11 @@ class _DisplayedCropState extends State<DisplayedCrop> {
                             width: 5,
                           ),
                           Text(
-                            'Location:',
+                            'Location: ',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          Text('Juma Mgunda',
+                          Text('Tanzania',
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w500))
                         ],

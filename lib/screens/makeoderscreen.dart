@@ -10,11 +10,11 @@ import 'package:provider/provider.dart';
 
 class MakeOrderPage extends StatefulWidget {
   //String selerphone;
-  //String price;
+  String bei;
   //String zao;
   String seleremail;
 
-  MakeOrderPage({super.key, required this.seleremail});
+  MakeOrderPage({super.key, required this.seleremail,required this.bei});
 
   @override
   State<MakeOrderPage> createState() => _MakeOrderPageState();
@@ -46,8 +46,10 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
       body: ListView(
         children: [
           DisplayedCrop(
-            farmeremail: 'Bei',
-          ), // DisplayedCrop(),
+            farmeremail:widget.seleremail,
+            bei: widget.bei,
+          ), 
+          // DisplayedCrop(),
 
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -57,6 +59,7 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
                 const Text(
                   'Ofa Yangu',
                   style: TextStyle(
+                   
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                       color: Colors.blueGrey),
@@ -64,6 +67,7 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
                 const Divider(),
                 TextFormField(
                   controller: _offer,
+                  keyboardType: TextInputType.number,
                 ),
               ],
             ),
@@ -74,7 +78,7 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Maelezo mafupi',
+                  'Kiasi Unachohitaji',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
@@ -82,6 +86,7 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
                 ),
                 const Divider(),
                 TextFormField(
+                  keyboardType: TextInputType.number,
                   controller: _details,
                 ),
               ],
@@ -98,6 +103,7 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
                   _offer.text,
                   _details.text,
                   widget.seleremail,
+                  user!.email
                 );
 
                 setState(() {

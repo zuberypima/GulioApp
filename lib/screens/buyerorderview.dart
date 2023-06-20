@@ -14,12 +14,13 @@ class _BuyerOrdersState extends State<BuyerOrders> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _odersStream = FirebaseFirestore.instance
-        .collection('OrderPres').where('Sender',isEqualTo: user!.email)
+        .collection('OrderPres').where('Buyer',isEqualTo: user!.email)
         .snapshots();
   return Scaffold(
         appBar: AppBar(
           backgroundColor: ConstantsColors().mainColor(),
           title: Text('Orders'),
+          automaticallyImplyLeading: false,
         ),
         body: StreamBuilder<QuerySnapshot>(
           stream: _odersStream,
@@ -36,24 +37,97 @@ class _BuyerOrdersState extends State<BuyerOrders> {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
                 return Card(
-                  child: ListTile(
-                    minVerticalPadding: 5.0,
-                    title: Text(data['Sender']),
-                    subtitle: Row(
-                      children: [
-                        Text('Bei'),
-                        SizedBox(
-                          width: 10,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        minVerticalPadding: 5.0,
+                        title: Text(data['Buyer']),
+                        subtitle: Row(
+                          children: [
+                            Text('Bei'),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(data['ofa'])
+                          ],
                         ),
-                        Text(data['ofa'])
-                      ],
-                    ),
-                    trailing: InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Messages(reciver: data['Reciver'],)));
-                        },
-                        child: Icon(Icons.forward)),
+                       
+                      ),
+                       Divider( color: Colors.black26),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                width: 70,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    color: Colors.cyan,
+                                    border: Border.all(
+                                        width: 2, color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.phone_enabled,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                width: 70,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    color: Colors.blueGrey,
+                                    border: Border.all(
+                                        width: 2, color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Center(
+                                  child: IconButton(
+                                    onPressed: () {
+                                       Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Messages(reciver: data['Farmer'],pagefrom: 'BuyerPage',)));
+                                    },
+                                    icon: Icon(
+                                      Icons.sms,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            //  Padding(
+                            //   padding: const EdgeInsets.all(10.0),
+                            //   child: Container(
+                            //     width: 70,
+                            //     height: 40,
+                            //     decoration: BoxDecoration(
+                            //         color: Colors.green,
+                            //         border: Border.all(
+                            //             width: 2, color: Colors.grey),
+                            //         borderRadius: BorderRadius.circular(10)),
+                            //     child: Center(child: Text('Pokea',style:TextStyle(color:Colors.white))),
+                            //   ),
+                            // ),
+                             Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                width: 60,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    border: Border.all(
+                                        width: 2, color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Center(child: Text('Futa',style:TextStyle(color:Colors.white,))),
+                              ),
+                            ),
+                          ])
+                    ],
                   ),
                 );
               }).toList(),
