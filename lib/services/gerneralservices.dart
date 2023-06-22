@@ -47,7 +47,6 @@ class GeneralServices {
             documentSnapshot.get('Bei'),
             documentSnapshot.get('Kipimo'),
             documentSnapshot.get('Mkulima'),
-            // documentSnapshot.get('Stock'),
             stock,
             documentSnapshot.get('image'));
       }

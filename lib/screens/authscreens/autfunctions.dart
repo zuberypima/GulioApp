@@ -41,6 +41,9 @@ class AuthFunction {
         }
       }
 
+
+  
+
    
     } on FirebaseAuthException catch (e) {
       // _errorMessage = e.message!;
@@ -51,6 +54,28 @@ class AuthFunction {
       );
     }
   }
+
+
+
+Future<String> homeDirectory() async {
+      if (FirebaseAuth.instance.currentUser != null) {
+        String? userRole = await getUserRole(auth.currentUser!.email.toString());
+        if (userRole == 'Mkulima') {    
+          return 'Mkulima';
+                   // Navigator.pushReplacementNamed(context, '/admin_screen');
+          // Navigator.of(context)
+          // .push(MaterialPageRoute(builder: (context) => FarmerPage()));
+        } else if (userRole == 'Buyer') {
+          return 'Buyer';
+          //Navigator.pushReplacementNamed(context, '/user_screen');
+          //    Navigator.of(context)
+          // .push(MaterialPageRoute(builder: (context) => BuyerHomePage()));
+        }
+      }
+      return '';
+      }
+
+
 
   // User sign up first time;
 Future<void>  signUp( BuildContext context,String firstName, lastName, email,phonenumber, password,userrole, userlocation,
