@@ -18,16 +18,15 @@ import 'package:provider/provider.dart';
 
 import 'screens/messages.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
-  MyApp(),  
-  ); 
+    MyApp(),
+  );
 }
 
 class MyApp extends StatefulWidget {
-
   MyApp({super.key});
 
   @override
@@ -36,62 +35,60 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // Future<String> userRole =AuthFunction().homeDirectory();
-  User? userol =FirebaseAuth.instance.currentUser;
-   final FirebaseAuth auth = FirebaseAuth.instance;
-   late StreamSubscription<User?> user;
-  @override
-  void initState() {
-    super.initState();
-     Future<String> userRole =AuthFunction().homeDirectory();
-    user =FirebaseAuth.instance.authStateChanges().listen((user) { 
-      if (user ==null){
-        print('object');
+  User? userol = FirebaseAuth.instance.currentUser;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  late StreamSubscription<User?> user;
+  // String userRole = 'Mkulima';
 
-      }
-      else{
+  @override
+  void initState(){
+    super.initState();
+    user = FirebaseAuth.instance.authStateChanges().listen((user) async {
+      if (user == null) {
+        print('object');
+      } else {
         print('object222');
       }
     });
-    
   }
 
   @override
-  void dispose(){
+  void dispose() {
     user.cancel();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      // Provider<UserDetails>(create:(context)=>UserDetails()),
-      ChangeNotifierProvider<UserDetails>(create: (context)=>UserDetails())
-    ],
-    child:MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: FirebaseAuth.instance.currentUser ==null ? 'login':'home',
-      routes: {
-        'home':(context){
-          var role =AuthFunction().getUserRole(auth.currentUser!.email.toString());
-        print('this is');
-          print(role);
-          if (AuthFunction().getUserRole(auth.currentUser!.email.toString()) =='Mkulima'){
-            return FarmerPage();
-          }
-          else {
-            return BuyerHomePage();
-          }
+    return MultiProvider(
+      providers: [
+        // Provider<UserDetails>(create:(context)=>UserDetails()),
+        ChangeNotifierProvider<UserDetails>(create: (context) => UserDetails())
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute:
+            FirebaseAuth.instance.currentUser == null ? 'login' : 'home',
+        routes: {
+          'home': (context) {
+              String userRole =auth.currentUser!.email.toString();
+              print(AuthFunction().getUserRole(userRole) );
+            if (AuthFunction().getUserRole(userRole) == 'Mkulima') {
+              return FarmerPage();
+            } else {
+              return BuyerHomePage();
+            }
+          },
+          'mkulima': (context) => FarmerPage(),
+          'profile': (context) => ProfileScreen(),
+          'postscreen': (context) => PostPage(),
+          'cropchoice': (context) => SelecteCropPage(),
+          'login': (context) => LoginPage(),
+          'register': (context) => SelectAccountType(),
+          'buyer': (context) => BuyerHomePage()
+          // 'order':(context) => Orders(),
         },
-        'mkulima':(context)=> FarmerPage(),
-        'profile':(context)=>ProfileScreen(),
-        'postscreen':(context) => PostPage(),
-        'cropchoice':(context)=>SelecteCropPage(),
-        'login':(context) => LoginPage(),
-        'register':(context) =>SelectAccountType(),
-        'buyer':(context) =>  BuyerHomePage()
-        // 'order':(context) => Orders(),
-      },
-    ) ,
+      ),
     );
   }
 }
-

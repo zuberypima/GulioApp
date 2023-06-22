@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gulio/screens/authscreens/loginpage.dart';
 import 'package:gulio/screens/buyerhome.dart';
 import 'package:gulio/screens/farmerhome.dart';
 import 'package:gulio/screens/selerscreen.dart';
@@ -19,7 +20,7 @@ class AuthFunction {
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
       return data['userrole'] as String?;
     }
-    return null;
+    return '';
   }
   Future<void> login(
       BuildContext context, String email, String password) async {
@@ -57,16 +58,16 @@ class AuthFunction {
 
 
 
-Future<String> homeDirectory() async {
+Future<Object> homeDirectory() async {
       if (FirebaseAuth.instance.currentUser != null) {
         String? userRole = await getUserRole(auth.currentUser!.email.toString());
         if (userRole == 'Mkulima') {    
-          return 'Mkulima';
+          return  FarmerPage();
                    // Navigator.pushReplacementNamed(context, '/admin_screen');
           // Navigator.of(context)
           // .push(MaterialPageRoute(builder: (context) => FarmerPage()));
         } else if (userRole == 'Buyer') {
-          return 'Buyer';
+          return BuyerHomePage();
           //Navigator.pushReplacementNamed(context, '/user_screen');
           //    Navigator.of(context)
           // .push(MaterialPageRoute(builder: (context) => BuyerHomePage()));
@@ -131,4 +132,8 @@ Future<void>  signUp( BuildContext context,String firstName, lastName, email,pho
 // homepage (){
 //   Navigator.of(context as BuildContext).push(MaterialPageRoute(builder: (context)=>const SelerScreen()));
 // }  
-}
+
+Future<void> logOut() async {
+  await FirebaseAuth.instance.signOut();
+   
+}}

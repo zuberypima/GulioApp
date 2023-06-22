@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gulio/screens/authscreens/autfunctions.dart';
+import 'package:gulio/screens/authscreens/loginpage.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -89,20 +91,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         title: Text('Mazao Yangu'),
                         onTap: () => {Navigator.of(context).pop()},
                       ),
-                      ListTile(
-                        leading: Icon(Icons.border_color),
-                        title: Text('Oder Zangu'),
-                        onTap: () => {Navigator.of(context).pop()},
+                      InkWell(
+                        onTap: () {
+                          // Navigator.of(context).push(MaterialPageRoute(builder: (context)=))
+                        },
+                        child: ListTile(
+                          leading: Icon(Icons.border_color),
+                          title: Text('Oder Zangu'),
+                          onTap: () => {Navigator.of(context).pop()},
+                        ),
                       ),
                       ListTile(
                         leading: Icon(Icons.location_on),
                         title: Text('Makazi'),
                         onTap: () => {Navigator.of(context).pop()},
                       ),
-                      ListTile(
-                        leading: Icon(Icons.exit_to_app),
-                        title: Text('Logout'),
-                        onTap: () => {Navigator.of(context).pop()},
+                      InkWell(
+                        onTap: (){
+                         AuthFunction().logOut();
+                         Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LoginPage(
+                         )));
+                        },
+                        child: ListTile(
+                          leading: Icon(Icons.exit_to_app),
+                          title: Text('Logout'),
+                          onTap: () => {Navigator.of(context).pop()},
+                        ),
                       ),
                     ],
                   );
