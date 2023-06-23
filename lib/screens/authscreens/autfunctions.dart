@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gulio/providers/userdata.dart';
 import 'package:gulio/screens/authscreens/loginpage.dart';
 import 'package:gulio/screens/buyerhome.dart';
 import 'package:gulio/screens/farmerhome.dart';
@@ -18,7 +19,9 @@ class AuthFunction {
         await _firestore.collection('Users').doc(uid).get();
     if (snapshot.exists) {
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      UserDetails().setUserRole(data['userrole']);
       return data['userrole'] as String?;
+
     }
     return '';
   }
@@ -91,7 +94,7 @@ Future<void>  signUp( BuildContext context,String firstName, lastName, email,pho
             // String? userRole = await getUserRole(auth.currentUser!.email.toString());
         if (userrole == 'Mkulima') {
           // Navigator.pushReplacementNamed(context, '/admin_screen');
-            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const FarmerPage()));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> FarmerPage()));
         } else if (userrole == 'Buyer') {
           //Navigator.pushReplacementNamed(context, '/user_screen');
             // Navigator.of(context)

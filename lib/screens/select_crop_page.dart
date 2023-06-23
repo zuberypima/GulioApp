@@ -68,7 +68,7 @@ class _SelecteCropPageState extends State<SelecteCropPage> {
             ),
             InkWell(
               onTap: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>FarmerPage()));
+                // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>FarmerPage()));
               },
               child: Container(
                 width: 130,

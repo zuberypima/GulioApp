@@ -71,15 +71,16 @@ class _MyAppState extends State<MyApp> {
             FirebaseAuth.instance.currentUser == null ? 'login' : 'home',
         routes: {
           'home': (context) {
-              String userRole =auth.currentUser!.email.toString();
-              print(AuthFunction().getUserRole(userRole) );
+            print(UserDetails().userRole.toString());
+             String userRole =auth.currentUser!.email.toString();
+              // print(AuthFunction().getUserRole(userRole) );
             if (AuthFunction().getUserRole(userRole) == 'Mkulima') {
-              return FarmerPage();
+              return ProfileScreen();
             } else {
               return BuyerHomePage();
             }
           },
-          'mkulima': (context) => FarmerPage(),
+          // 'mkulima': (context) => FarmerPage(),
           'profile': (context) => ProfileScreen(),
           'postscreen': (context) => PostPage(),
           'cropchoice': (context) => SelecteCropPage(),

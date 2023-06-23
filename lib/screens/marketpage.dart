@@ -70,6 +70,8 @@ class _MarketPageState extends State<MarketPage> {
                             subtitle: Text(data['Kipimo']+' '+"zilizopo"+": "+data['Stock']),
                             trailing: ElevatedButton(
                                 onPressed: () {
+                                  print(UserDetails().userRole.toString());
+                                  print('nothing detected');
                                   Provider.of<UserDetails>(context,
                                           listen: false)
                                       .bidhaaname(data['Bei']);

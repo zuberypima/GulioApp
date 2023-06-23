@@ -11,7 +11,8 @@ import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/homegridIcon.dart';
 
 class FarmerPage extends StatefulWidget {
-  const FarmerPage({super.key});
+  // String userRole;
+   FarmerPage({super.key,});
 
   @override
   State<FarmerPage> createState() => _FarmerPageState();
@@ -21,8 +22,8 @@ class _FarmerPageState extends State<FarmerPage> {
   int _currentIndex = 0;
 
   final List<Widget> _selerpages = [SelerScreen(), MarketPage(), SelerOrders(),ProfileScreen()];
- 
 User? user =FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
