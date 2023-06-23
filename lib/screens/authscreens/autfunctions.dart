@@ -48,7 +48,7 @@ class AuthFunction {
 
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => FarmerPage(
-                    userRole: userRole.toString(),
+                   
                   )));
         } else if (userRole == 'Buyer') {
           //Navigator.pushReplacementNamed(context, '/user_screen');
@@ -72,7 +72,7 @@ class AuthFunction {
       String? userRole = await getUserRole(auth.currentUser!.email.toString());
       if (userRole == 'Mkulima') {
         return FarmerPage(
-          userRole: userRole.toString(),
+         
         );
         // Navigator.pushReplacementNamed(context, '/admin_screen');
         // Navigator.of(context)
@@ -112,7 +112,7 @@ class AuthFunction {
           // Navigator.pushReplacementNamed(context, '/admin_screen');
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => FarmerPage(
-                    userRole: userrole,
+                
                   )));
         } else if (userrole == 'Buyer') {
           //Navigator.pushReplacementNamed(context, '/user_screen');

@@ -13,16 +13,17 @@ import 'package:gulio/screens/farmerhome.dart';
 import 'package:gulio/screens/postScreen.dart';
 import 'package:gulio/screens/profilescreen.dart';
 import 'package:gulio/screens/select_crop_page.dart';
+import 'package:gulio/widgets/dividerpage.dart';
 import 'package:provider/provider.dart';
 import 'screens/messages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(
-   ChangeNotifierProvider(create: (context)=>UserDetails(),
-   child:  MyApp(),)
-  );
+  runApp(ChangeNotifierProvider(
+    create: (context) => UserDetails(),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -39,15 +40,12 @@ class _MyAppState extends State<MyApp> {
   // String userRole = 'Mkulima';
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    user = FirebaseAuth.instance.authStateChanges().listen((user) async {
-      if (user == null) {
-        print('object');
-      } else {
-        print('object222');
-      }
-    });
+    checkAuthorization();
+    final req = AuthFunction()
+        .getUserRole(FirebaseAuth.instance.currentUser.toString());
+    user = FirebaseAuth.instance.authStateChanges().listen((user) async {});
   }
 
   @override
@@ -60,19 +58,21 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute:'login',
-          //FirebaseAuth.instance.currentUser == null ? 'login' : 'home',
+      initialRoute:
+          FirebaseAuth.instance.currentUser == null ? 'login' : 'home',
       routes: {
         'home': (context) {
-         
-           String userRole =auth.currentUser!.email.toString();
-          if (AuthFunction().getUserRole(userRole) == 'Mkulima') {
-            return FarmerPage(userRole: userRole);
+          String rew = Provider.of<UserDetails>(context).userRole.toString();
+          print(rew);
+          if (rew == 'Mkulima') {
+            return FarmerPage();
           } else {
             return BuyerHomePage();
           }
         },
         // 'mkulima': (context) => FarmerPage(),
+        'direct': (context) =>
+            DividerPage(role: checkAuthorization().toString()),
         'profile': (context) => ProfileScreen(),
         'postscreen': (context) => PostPage(),
         'cropchoice': (context) => SelecteCropPage(),
@@ -82,5 +82,13 @@ class _MyAppState extends State<MyApp> {
         // 'order':(context) => Orders(),
       },
     );
+  }
+
+  checkAuthorization() async {
+    String role = await AuthFunction()
+        .getUserRole(auth.currentUser!.email.toString()) as String;
+    Provider.of<UserDetails>(context, listen: false).setUserRole(role);
+    print(role);
+    return role.toString();
   }
 }
