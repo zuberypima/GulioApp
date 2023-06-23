@@ -8,23 +8,25 @@ import 'package:gulio/screens/authscreens/loginpage.dart';
 import 'package:gulio/screens/buyerhome.dart';
 import 'package:gulio/screens/farmerhome.dart';
 import 'package:gulio/screens/selerscreen.dart';
+import 'package:provider/provider.dart';
 
 class AuthFunction {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   bool loading = false;
-   Future<String?> getUserRole(String uid) async {
+  Future<String?> getUserRole(String uid) async {
     DocumentSnapshot snapshot =
         await _firestore.collection('Users').doc(uid).get();
     if (snapshot.exists) {
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-      UserDetails().setUserRole(data['userrole']);
-      return data['userrole'] as String?;
+      // UserDetails().setUserRole(data['userrole']);
 
+      return data['userrole'] as String?;
     }
-    return '';
+    return null;
   }
+
   Future<void> login(
       BuildContext context, String email, String password) async {
     try {
@@ -33,22 +35,28 @@ class AuthFunction {
         password: password,
       );
       if (userCredential.user != null) {
-        String? userRole = await getUserRole(auth.currentUser!.email.toString());
+        String? userRole =
+            await getUserRole(auth.currentUser!.email.toString());
+        print(userRole);
+           print('hello');
+             Provider.of<UserDetails>(context, listen: false)
+            .setUserRole(userRole.toString());   
+        // UserDetails().setUserRole(userRole.toString());
+
         if (userRole == 'Mkulima') {
-         // Navigator.pushReplacementNamed(context, '/admin_screen');
-          Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => FarmerPage()));
+          // Navigator.pushReplacementNamed(context, '/admin_screen');
+
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => FarmerPage(
+                    userRole: userRole.toString(),
+                  )));
         } else if (userRole == 'Buyer') {
           //Navigator.pushReplacementNamed(context, '/user_screen');
-             Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => BuyerHomePage()));
+
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => BuyerHomePage()));
         }
       }
-
-
-  
-
-   
     } on FirebaseAuthException catch (e) {
       // _errorMessage = e.message!;
       // notifyListeners();
@@ -59,49 +67,61 @@ class AuthFunction {
     }
   }
 
-
-
-Future<Object> homeDirectory() async {
-      if (FirebaseAuth.instance.currentUser != null) {
-        String? userRole = await getUserRole(auth.currentUser!.email.toString());
-        if (userRole == 'Mkulima') {    
-          return  FarmerPage();
-                   // Navigator.pushReplacementNamed(context, '/admin_screen');
-          // Navigator.of(context)
-          // .push(MaterialPageRoute(builder: (context) => FarmerPage()));
-        } else if (userRole == 'Buyer') {
-          return BuyerHomePage();
-          //Navigator.pushReplacementNamed(context, '/user_screen');
-          //    Navigator.of(context)
-          // .push(MaterialPageRoute(builder: (context) => BuyerHomePage()));
-        }
+  Future<Object> homeDirectory() async {
+    if (FirebaseAuth.instance.currentUser != null) {
+      String? userRole = await getUserRole(auth.currentUser!.email.toString());
+      if (userRole == 'Mkulima') {
+        return FarmerPage(
+          userRole: userRole.toString(),
+        );
+        // Navigator.pushReplacementNamed(context, '/admin_screen');
+        // Navigator.of(context)
+        // .push(MaterialPageRoute(builder: (context) => FarmerPage()));
+      } else if (userRole == 'Buyer') {
+        return BuyerHomePage();
+        //Navigator.pushReplacementNamed(context, '/user_screen');
+        //    Navigator.of(context)
+        // .push(MaterialPageRoute(builder: (context) => BuyerHomePage()));
       }
-      return '';
-      }
-
-
+    }
+    return '';
+  }
 
   // User sign up first time;
-Future<void>  signUp( BuildContext context,String firstName, lastName, email,phonenumber, password,userrole, userlocation,
-      ) async {
+  Future<void> signUp(
+    BuildContext context,
+    String firstName,
+    lastName,
+    email,
+    phonenumber,
+    password,
+    userrole,
+    userlocation,
+  ) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
       userDataCollections(
-          firstName, lastName,email,phonenumber, userrole, userlocation);
-          if (userCredential !=null){
-            // String? userRole = await getUserRole(auth.currentUser!.email.toString());
+          firstName, lastName, email, phonenumber, userrole, userlocation);
+      if (userCredential != null) {
+        // String? userRole = await getUserRole(auth.currentUser!.email.toString());
+        Provider.of<UserDetails>(context, listen: false)
+            .setUserRole('test');
         if (userrole == 'Mkulima') {
           // Navigator.pushReplacementNamed(context, '/admin_screen');
-            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> FarmerPage()));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => FarmerPage(
+                    userRole: userrole,
+                  )));
         } else if (userrole == 'Buyer') {
           //Navigator.pushReplacementNamed(context, '/user_screen');
-            // Navigator.of(context)
+          // Navigator.of(context)
           //.push(MaterialPageRoute(builder: (context) => BuyerHomePage()));
-           Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const BuyerHomePage()));
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const BuyerHomePage()));
         }
-          }
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -113,7 +133,7 @@ Future<void>  signUp( BuildContext context,String firstName, lastName, email,pho
     }
   }
 
-  userDataCollections(String _firstName,_lastName, _email, _phonenumber,
+  userDataCollections(String _firstName, _lastName, _email, _phonenumber,
       _userrole, userlocation) async {
     User? userAuth = auth.currentUser;
     if (userAuth != null) {
@@ -134,9 +154,9 @@ Future<void>  signUp( BuildContext context,String firstName, lastName, email,pho
   }
 // homepage (){
 //   Navigator.of(context as BuildContext).push(MaterialPageRoute(builder: (context)=>const SelerScreen()));
-// }  
+// }
 
-Future<void> logOut() async {
-  await FirebaseAuth.instance.signOut();
-   
-}}
+  Future<void> logOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+}

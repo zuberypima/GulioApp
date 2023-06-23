@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,14 +14,14 @@ import 'package:gulio/screens/postScreen.dart';
 import 'package:gulio/screens/profilescreen.dart';
 import 'package:gulio/screens/select_crop_page.dart';
 import 'package:provider/provider.dart';
-
 import 'screens/messages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
-    MyApp(),
+   ChangeNotifierProvider(create: (context)=>UserDetails(),
+   child:  MyApp(),)
   );
 }
 
@@ -34,7 +33,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // Future<String> userRole =AuthFunction().homeDirectory();
   User? userol = FirebaseAuth.instance.currentUser;
   final FirebaseAuth auth = FirebaseAuth.instance;
   late StreamSubscription<User?> user;
@@ -60,36 +58,29 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        // Provider<UserDetails>(create:(context)=>UserDetails()),
-        ChangeNotifierProvider<UserDetails>(create: (context) => UserDetails())
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute:
-            FirebaseAuth.instance.currentUser == null ? 'login' : 'home',
-        routes: {
-          'home': (context) {
-            print(UserDetails().userRole.toString());
-             String userRole =auth.currentUser!.email.toString();
-              // print(AuthFunction().getUserRole(userRole) );
-            if (AuthFunction().getUserRole(userRole) == 'Mkulima') {
-              return ProfileScreen();
-            } else {
-              return BuyerHomePage();
-            }
-          },
-          // 'mkulima': (context) => FarmerPage(),
-          'profile': (context) => ProfileScreen(),
-          'postscreen': (context) => PostPage(),
-          'cropchoice': (context) => SelecteCropPage(),
-          'login': (context) => LoginPage(),
-          'register': (context) => SelectAccountType(),
-          'buyer': (context) => BuyerHomePage()
-          // 'order':(context) => Orders(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute:'login',
+          //FirebaseAuth.instance.currentUser == null ? 'login' : 'home',
+      routes: {
+        'home': (context) {
+         
+           String userRole =auth.currentUser!.email.toString();
+          if (AuthFunction().getUserRole(userRole) == 'Mkulima') {
+            return FarmerPage(userRole: userRole);
+          } else {
+            return BuyerHomePage();
+          }
         },
-      ),
+        // 'mkulima': (context) => FarmerPage(),
+        'profile': (context) => ProfileScreen(),
+        'postscreen': (context) => PostPage(),
+        'cropchoice': (context) => SelecteCropPage(),
+        'login': (context) => LoginPage(),
+        'register': (context) => SelectAccountType(),
+        'buyer': (context) => BuyerHomePage()
+        // 'order':(context) => Orders(),
+      },
     );
   }
 }

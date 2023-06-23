@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gulio/providers/userdata.dart';
 import 'package:gulio/screens/selerscreen.dart';
 import 'package:gulio/screens/marketpage.dart';
 import 'package:gulio/screens/postScreen.dart';
@@ -9,9 +10,10 @@ import 'package:gulio/screens/profilescreen.dart';
 import 'package:gulio/screens/sellerorderview.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/homegridIcon.dart';
+import 'package:provider/provider.dart';
 
 class FarmerPage extends StatefulWidget {
-  // String userRole;
+
    FarmerPage({super.key,});
 
   @override

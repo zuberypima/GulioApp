@@ -15,23 +15,23 @@ class UserModel {
       required this.email,
       required this.phoneNumber,
       required this.userRole});
-  UserModel.fromData(Map<String, dynamic> data)
-      : id = data['id'],
-        firstName = data['firstName'],
-        lastName = data['lastName'],
-        email = data['email'],
-        phoneNumber = data['phoneNumber'],
-        userRole = data['userRole'];
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'firstName': firstName,
-      'lastName': lastName,
-      'email': email,
-      'phoneNumber': phoneNumber,
-      'userRole': userRole,
-    };
-  }
+  // UserModel.fromData(Map<String, dynamic> data)
+  //     : id = data['id'],
+  //       firstName = data['firstName'],
+  //       lastName = data['lastName'],
+  //       email = data['email'],
+  //       phoneNumber = data['phoneNumber'],
+  //       userRole = data['userRole'];
+  // Map<String, dynamic> toJson() {
+  //   return {
+  //     'id': id,
+  //     'firstName': firstName,
+  //     'lastName': lastName,
+  //     'email': email,
+  //     'phoneNumber': phoneNumber,
+  //     'userRole': userRole,
+  //   };
+  // }
 }
 
 class UserProvider extends ChangeNotifier {
