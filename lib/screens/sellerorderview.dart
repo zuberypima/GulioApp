@@ -113,9 +113,9 @@ class _SelerOrdersState extends State<SelerOrders> {
                                Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: InkWell(
-                                  onTap: () {int.parse(data['Maelezo']) -int.parse(data['Maelezo']) ;
-                                    int updateStock =
-                                    GeneralServices().updateStock(data['Maelezo']);
+                                  onTap: () {;
+                                    int updateStock = int.parse(data['Maelezo']) +int.parse(data['Maelezo']) ;
+                                    GeneralServices().recivedOder(updateStock.toString());
                                   },
                                   child: Container(
                                     width: 70,

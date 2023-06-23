@@ -22,7 +22,7 @@ class _MarketPageState extends State<MarketPage> {
     final Stream<QuerySnapshot> _userposts =
         FirebaseFirestore.instance.collection('Posts').snapshots();
            final userRole = Provider.of<UserDetails>(context);
-    final provider =Provider.of<UserDetails>(context);
+    // final provider =Provider.of<UserDetails>(context);
     return Scaffold(
         backgroundColor: Colors.grey[300],
         appBar: AppBar(
@@ -69,13 +69,11 @@ class _MarketPageState extends State<MarketPage> {
                         ),
                         Divider(),
                         ListTile(
-                          leading: Text(provider.userRole.toString()),
+                         
                             title: Text(data['Kipimo']+': '+data['Bei']+ "Tsh"),
                             subtitle: Text(data['Kipimo']+' '+"zilizopo"+": "+data['Stock']),
                             trailing: ElevatedButton(
                                 onPressed: () {
-                                   print(Provider.of<UserDetails>(context,listen: false).userRole);
-                                  print('nothing detected');      
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => MakeOrderPage(
                                             seleremail: data['Mkulima'],

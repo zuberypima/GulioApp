@@ -13,7 +13,6 @@ import 'package:gulio/screens/farmerhome.dart';
 import 'package:gulio/screens/postScreen.dart';
 import 'package:gulio/screens/profilescreen.dart';
 import 'package:gulio/screens/select_crop_page.dart';
-import 'package:gulio/widgets/dividerpage.dart';
 import 'package:provider/provider.dart';
 import 'screens/messages.dart';
 
@@ -36,32 +35,26 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   User? userol = FirebaseAuth.instance.currentUser;
   final FirebaseAuth auth = FirebaseAuth.instance;
-  late StreamSubscription<User?> user;
+  User? user = FirebaseAuth.instance.currentUser;
+
   // String userRole = 'Mkulima';
 
   @override
   void initState() {
     super.initState();
-    checkAuthorization();
-    final req = AuthFunction()
-        .getUserRole(FirebaseAuth.instance.currentUser.toString());
-    user = FirebaseAuth.instance.authStateChanges().listen((user) async {});
-  }
-
-  @override
-  void dispose() {
-    user.cancel();
-    super.dispose();
+    // checkAuthorization();
   }
 
   @override
   Widget build(BuildContext context) {
+  
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute:
           FirebaseAuth.instance.currentUser == null ? 'login' : 'home',
       routes: {
         'home': (context) {
+            checkAuthorization();
           String rew = Provider.of<UserDetails>(context).userRole.toString();
           print(rew);
           if (rew == 'Mkulima') {
@@ -71,8 +64,6 @@ class _MyAppState extends State<MyApp> {
           }
         },
         // 'mkulima': (context) => FarmerPage(),
-        'direct': (context) =>
-            DividerPage(role: checkAuthorization().toString()),
         'profile': (context) => ProfileScreen(),
         'postscreen': (context) => PostPage(),
         'cropchoice': (context) => SelecteCropPage(),
@@ -85,10 +76,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   checkAuthorization() async {
-    String role = await AuthFunction()
-        .getUserRole(auth.currentUser!.email.toString()) as String;
-    Provider.of<UserDetails>(context, listen: false).setUserRole(role);
-    print(role);
-    return role.toString();
+    if (user!.email != null) {
+      String role = await AuthFunction()
+          .getUserRole(auth.currentUser!.email.toString()) as String;
+      Provider.of<UserDetails>(context, listen: false).setUserRole(role);
+      print(role);
+      return role.toString();
+    }
   }
 }

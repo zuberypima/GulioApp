@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gulio/screens/makeoderscreen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:path/path.dart';
@@ -34,12 +35,14 @@ class GeneralServices {
     });
   }
 
+
+
   updateStock(
     stock,
   ) {
     FirebaseFirestore.instance
         .collection('Posts')
-        .doc('test@g.co')
+        .doc(user!.email)
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
@@ -52,6 +55,21 @@ class GeneralServices {
       }
     });
   }
+  
+
+  recivedOder( 
+    odervalue
+  ) {
+    FirebaseFirestore.instance
+        .collection('RecievdeOders')
+        .add({
+          'SoldStock':odervalue
+        });
+    
+  }
+  
+  // void postCrop(param0, param1, param2, stock, param4) {
+  // }
 
   sendSMS(
     String body,
