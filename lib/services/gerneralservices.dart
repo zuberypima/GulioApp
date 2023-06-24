@@ -19,22 +19,46 @@ class GeneralServices {
       FirebaseFirestore.instance.collection('OrderPres');
   final DateTime sentTime = DateTime.now();
   postCrop(
-    String bei,
+    String bei, 
     kipimo,
     mkulima,
     stock,
     imageUrl,
   ) {
-    return cropsposted.doc(user!.email).set({
+    return cropsposted.doc(mkulima).set({
       'Bei': bei,
       'Kipimo': kipimo,
       'Mkulima': mkulima,
       'Stock': stock,
-      'image': imageUrl
-      // 'Location':location,
+      'image': imageUrl,
+     
     });
   }
 
+  oderpressed(String offered, String kiasi, seller, buyer) {
+    return orderpresed.doc(buyer).set({
+      "ofa": offered,
+      "Kiasi": kiasi,
+      "Farmer": seller,
+      "Buyer": buyer,
+      'Status':'Pending'
+    });
+  }
+
+
+void updateOrder(String buyerID) {
+  DocumentReference docRef = FirebaseFirestore.instance.collection('OrderPres').doc(buyerID);
+
+  // Update the document fields
+  docRef.update({
+    'Status': 'Accepted',
+    // Add more fields to update
+  }).then((value) {
+    print('Document updated successfully!');
+  }).catchError((error) {
+    print('Failed to update document: $error');
+  });
+}
 
 
   updateStock(
@@ -116,15 +140,6 @@ class GeneralServices {
     });
   }
 
-  oderpressed(String offered, String detaisl, seller, buyer) {
-    return orderpresed.add({
-      //'Selected': bidhaa,
-      "ofa": offered,
-      "Maelezo": detaisl,
-      "Farmer": seller,
-      "Buyer": buyer,
-    });
-  }
 
   Future<String?> getPostDetails(String postId) async {
     QuerySnapshot<Object?> snapshot =

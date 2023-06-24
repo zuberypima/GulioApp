@@ -57,7 +57,26 @@ class _SelerOrdersState extends State<SelerOrders> {
                               Text(data['ofa'])
                             ],
                           ),
-                        
+                        trailing: Container(
+                          height: 30,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 2,color: Colors.grey),
+                            borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Center(child: Text(data['Status'])),),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Row(
+                            children: [
+                              Text('Kiasi Kinachohitajika ::',style: TextStyle(
+                                fontSize: 16,fontWeight: FontWeight.w500
+                              ),),
+                              SizedBox(width: 10,),
+                              Text(data['Kiasi'],style: TextStyle(fontSize: 16),),
+                            ],
+                          ),
                         ),
                         Divider( color: Colors.black26),
                         Row(
@@ -114,8 +133,9 @@ class _SelerOrdersState extends State<SelerOrders> {
                                 padding: const EdgeInsets.all(10.0),
                                 child: InkWell(
                                   onTap: () {;
-                                    int updateStock = int.parse(data['Maelezo']) +int.parse(data['Maelezo']) ;
-                                    GeneralServices().recivedOder(updateStock.toString());
+                                  GeneralServices().updateOrder(data['Buyer']);
+                                    //int updateStock = int.parse(data['Maelezo']) +int.parse(data['Maelezo']) ;
+                                    //GeneralServices().recivedOder(updateStock.toString());
                                   },
                                   child: Container(
                                     width: 70,
