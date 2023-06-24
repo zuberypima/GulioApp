@@ -115,7 +115,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: ListTile(
                           leading: Icon(Icons.exit_to_app),
                           title: Text('Logout'),
-                          onTap: () => {Navigator.of(context).pop()},
                         ),
                       ),
                     ],

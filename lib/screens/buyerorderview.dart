@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gulio/screens/messages.dart';
+import 'package:gulio/services/gerneralservices.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 
 class BuyerOrders extends StatefulWidget {
@@ -68,7 +69,9 @@ class _BuyerOrdersState extends State<BuyerOrders> {
                                         width: 2, color: Colors.grey),
                                     borderRadius: BorderRadius.circular(10)),
                                 child: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    GeneralServices().makingPhoneCall();
+                                  },
                                   icon: Icon(
                                     Icons.phone_enabled,
                                     color: Colors.white,
@@ -100,32 +103,25 @@ class _BuyerOrdersState extends State<BuyerOrders> {
                                 ),
                               ),
                             ),
-                            //  Padding(
-                            //   padding: const EdgeInsets.all(10.0),
-                            //   child: Container(
-                            //     width: 70,
-                            //     height: 40,
-                            //     decoration: BoxDecoration(
-                            //         color: Colors.green,
-                            //         border: Border.all(
-                            //             width: 2, color: Colors.grey),
-                            //         borderRadius: BorderRadius.circular(10)),
-                            //     child: Center(child: Text('Pokea',style:TextStyle(color:Colors.white))),
-                            //   ),
-                            // ),
+                           
                              Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Container(
-                                width: 60,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    border: Border.all(
-                                        width: 2, color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Center(child: Text('Futa',style:TextStyle(color:Colors.white,))),
+                                padding: const EdgeInsets.all(10.0),
+                                child: InkWell(
+                                  onTap: () {
+                                    GeneralServices().deleteOder(data['Buyer']);
+                                  },
+                                  child: Container(
+                                    width: 60,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        border: Border.all(
+                                            width: 2, color: Colors.grey),
+                                        borderRadius: BorderRadius.circular(10)),
+                                    child: Center(child: Text('Futa',style:TextStyle(color:Colors.white,))),
+                                  ),
+                                ),
                               ),
-                            ),
                           ])
                     ],
                   ),

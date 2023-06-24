@@ -15,10 +15,12 @@ import 'package:gulio/screens/profilescreen.dart';
 import 'package:gulio/screens/select_crop_page.dart';
 import 'package:provider/provider.dart';
 import 'screens/messages.dart';
-
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+ 
+
   runApp(ChangeNotifierProvider(
     create: (context) => UserDetails(),
     child: MyApp(),
@@ -42,7 +44,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    // checkAuthorization();
+     checkAuthorization();
   }
 
   @override
@@ -54,7 +56,7 @@ class _MyAppState extends State<MyApp> {
           FirebaseAuth.instance.currentUser == null ? 'login' : 'home',
       routes: {
         'home': (context) {
-            checkAuthorization();
+            // checkAuthorization();
           String rew = Provider.of<UserDetails>(context).userRole.toString();
           print(rew);
           if (rew == 'Mkulima') {

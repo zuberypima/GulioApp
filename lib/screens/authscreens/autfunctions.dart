@@ -158,5 +158,6 @@ class AuthFunction {
 
   Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();
+    print('siged out');
   }
 }
