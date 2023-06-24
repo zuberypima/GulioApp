@@ -84,7 +84,7 @@ class _SelerOrdersState extends State<SelerOrders> {
                                 fontSize: 16,fontWeight: FontWeight.w500
                               ),),
                               SizedBox(width: 10,),
-                              Text(data['Kiasi'],style: TextStyle(fontSize: 16),),
+                              Text(data['Kiasi'].toString(),style: TextStyle(fontSize: 16),),
                             ],
                           ),
                         ),
@@ -103,7 +103,9 @@ class _SelerOrdersState extends State<SelerOrders> {
                                           width: 2, color: Colors.grey),
                                       borderRadius: BorderRadius.circular(10)),
                                   child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                       GeneralServices().makingPhoneCall();
+                                    },
                                     icon: Icon(
                                       Icons.phone_enabled,
                                       color: Colors.white,

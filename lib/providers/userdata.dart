@@ -7,11 +7,11 @@ class UserDetails extends ChangeNotifier {
 
   String? get userRole => _userRole;
 
-  void setUserRole(String value) {
-    _userRole = value;
-    print(_userRole);
-    print('object new role');
-    notifyListeners();
-  }
+   void setUserRole(String value) {
+     _userRole = value;
+     print(_userRole);
+     print('object new role');
+     notifyListeners();
+   }
 
 }

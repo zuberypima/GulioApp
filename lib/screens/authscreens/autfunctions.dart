@@ -38,9 +38,9 @@ class AuthFunction {
         String? userRole =
             await getUserRole(auth.currentUser!.email.toString());
         print(userRole);
-           print('hello');
-             Provider.of<UserDetails>(context, listen: false)
-            .setUserRole(userRole.toString());   
+          //  print('hello');
+          //    Provider.of<UserDetails>(context, listen: false)
+          //   .setUserRole(userRole.toString());   
         // UserDetails().setUserRole(userRole.toString());
 
         if (userRole == 'Mkulima') {
@@ -106,7 +106,7 @@ class AuthFunction {
           firstName, lastName, email, phonenumber, userrole, userlocation);
       if (userCredential != null) {
         // String? userRole = await getUserRole(auth.currentUser!.email.toString());
-        Provider.of<UserDetails>(context, listen: false)
+         Provider.of<UserDetails>(context, listen: false)
             .setUserRole('test');
         if (userrole == 'Mkulima') {
           // Navigator.pushReplacementNamed(context, '/admin_screen');

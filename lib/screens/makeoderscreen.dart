@@ -101,7 +101,7 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
                 });
                 await GeneralServices().oderpressed(
                   _offer.text,
-                  _details.text,
+                _details.text,
                   widget.seleremail,
                   user!.email
                 );

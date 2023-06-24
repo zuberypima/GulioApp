@@ -71,7 +71,7 @@ class _MarketPageState extends State<MarketPage> {
                         ListTile(
                          
                             title: Text(data['Kipimo']+': '+data['Bei']+ "Tsh"),
-                            subtitle: Text(data['Kipimo']+' '+"zilizopo"+": "+data['Stock']),
+                            subtitle: Text(data['Kipimo']+' '+"zilizopo"+": "+data['Stock'].toString()),
                             trailing: ElevatedButton(
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
