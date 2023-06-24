@@ -60,25 +60,74 @@ void updateOrder(String buyerID) {
   });
 }
 
+void updateStock(String selerID,int quantity) {
+  DocumentReference docRef = FirebaseFirestore.instance.collection('Posts').doc(selerID);
 
-  updateStock(
-    stock,
-  ) {
-    FirebaseFirestore.instance
-        .collection('Posts')
-        .doc(user!.email)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        postCrop(
-            documentSnapshot.get('Bei'),
-            documentSnapshot.get('Kipimo'),
-            documentSnapshot.get('Mkulima'),
-            stock,
-            documentSnapshot.get('image'));
-      }
-    });
-  }
+  // Update the document fields
+  docRef.update({
+    'Stock': 'Accepted',
+    // Add more fields to update
+  }).then((value) {
+    print('Document updated successfully!');
+  }).catchError((error) {
+    print('Failed to update document: $error');
+  });
+}
+
+
+void deleteOder(String buyerID) {
+  // Get a reference to the document you want to delete
+  DocumentReference docRef = FirebaseFirestore.instance.collection('OrderPres').doc(buyerID);
+
+  // Delete the document
+  docRef.delete().then((value) {
+    print('Document deleted successfully!');
+  }).catchError((error) {
+    print('Failed to delete document: $error');
+  });
+}
+
+void getPostDetails(String selerID,orderquantity) {
+  // Get a reference to the document you want to retrieve
+  DocumentReference docRef = FirebaseFirestore.instance.collection('Posts').doc(selerID);
+
+  // Retrieve the document
+  docRef.get().then((DocumentSnapshot snapshot) {
+  if (snapshot.exists) {
+      // Document exists, retrieve its data
+  Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+      print(data!['Stock']);
+      double nestock =double.parse(data!['Stock'])-orderquantity;
+      updateStock(selerID,nestock.toString() as int);
+    } else {
+      // Document does not exist
+      print('Document does not exist');
+    }
+  }).catchError((error) {
+    print('Failed to retrieve document: $error');
+  });
+}
+
+
+
+  // updateStock(
+  //   stock,
+  // ) {
+  //   FirebaseFirestore.instance
+  //       .collection('Posts')
+  //       .doc(user!.email)
+  //       .get()
+  //       .then((DocumentSnapshot documentSnapshot) {
+  //     if (documentSnapshot.exists) {
+  //       postCrop(
+  //           documentSnapshot.get('Bei'),
+  //           documentSnapshot.get('Kipimo'),
+  //           documentSnapshot.get('Mkulima'),
+  //           stock,
+  //           documentSnapshot.get('image'));
+  //     }
+  //   });
+  // }
   
 
   recivedOder( 
@@ -141,15 +190,15 @@ void updateOrder(String buyerID) {
   }
 
 
-  Future<String?> getPostDetails(String postId) async {
-    QuerySnapshot<Object?> snapshot =
-        await cropsposted.where('', isEqualTo: '').get();
-    // if (snapshot.exists) {
-    //   Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    //   return data['userrole'] as String?;
-    // }
-    return null;
-  }
+  // Future<String?> getPostDetails(String postId) async {
+  //   QuerySnapshot<Object?> snapshot =
+  //       await cropsposted.where('', isEqualTo: '').get();
+  //   // if (snapshot.exists) {
+  //   //   Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+  //   //   return data['userrole'] as String?;
+  //   // }
+  //   return null;
+  // }
 
   Future<String> uploadImageToFirebase(File imageFile) async {
     String fileName = basename(imageFile.path);

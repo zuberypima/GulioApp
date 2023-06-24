@@ -57,14 +57,24 @@ class _SelerOrdersState extends State<SelerOrders> {
                               Text(data['ofa'])
                             ],
                           ),
-                        trailing: Container(
+                        trailing:data['Status']=='Pending'? Container(
                           height: 30,
                           width: 100,
                           decoration: BoxDecoration(
+                            color: Colors.blueGrey,
                             border: Border.all(width: 2,color: Colors.grey),
                             borderRadius: BorderRadius.circular(10)
                           ),
-                          child: Center(child: Text(data['Status'])),),
+                          child: Center(child: Text(data['Status'],style: TextStyle(fontSize: 16,color: Colors.white))),):
+                          Container(
+                          height: 30,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            border: Border.all(width: 2,color: Colors.grey),
+                            borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Center(child: Text(data['Status'],style: TextStyle(fontSize: 16,color: Colors.white))),),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 20),
@@ -135,7 +145,7 @@ class _SelerOrdersState extends State<SelerOrders> {
                                   onTap: () {;
                                   GeneralServices().updateOrder(data['Buyer']);
                                     //int updateStock = int.parse(data['Maelezo']) +int.parse(data['Maelezo']) ;
-                                    //GeneralServices().recivedOder(updateStock.toString());
+                                    GeneralServices().getPostDetails(data['Farmer'],data['Kiasi']);
                                   },
                                   child: Container(
                                     width: 70,
@@ -151,15 +161,20 @@ class _SelerOrdersState extends State<SelerOrders> {
                               ),
                                Padding(
                                 padding: const EdgeInsets.all(10.0),
-                                child: Container(
-                                  width: 60,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      border: Border.all(
-                                          width: 2, color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Center(child: Text('Kataa',style:TextStyle(color:Colors.white,))),
+                                child: InkWell(
+                                  onTap: () {
+                                    GeneralServices().deleteOder(data['Buyer']);
+                                  },
+                                  child: Container(
+                                    width: 60,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        border: Border.all(
+                                            width: 2, color: Colors.grey),
+                                        borderRadius: BorderRadius.circular(10)),
+                                    child: Center(child: Text('Kataa',style:TextStyle(color:Colors.white,))),
+                                  ),
                                 ),
                               ),
                             ])
