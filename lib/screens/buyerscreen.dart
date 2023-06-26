@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:gulio/screens/jamiipage.dart';
 import 'package:gulio/screens/marketpage.dart';
 import 'package:gulio/screens/postScreen.dart';
 import 'package:gulio/screens/profilescreen.dart';
@@ -89,13 +90,18 @@ class _BuyerScreenState extends State<BuyerScreen> {
                     iconData: Icons.info_outline_rounded,
                     iconLable: 'Taarifa',
                   ),
-                  GridIconOne(
+                  GridIconOne(1
                     iconData: Icons.shopping_cart,
                     iconLable: 'Mikopo',
                   ),
-                  GridIconOne(
-                    iconData: Icons.people,
-                    iconLable: 'Jamii',
+                   InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>JamiiPage()));
+                    },
+                    child: GridIconOne(
+                      iconData: Icons.people,
+                      iconLable: 'Jamii',
+                    ),
                   ),
                 ],
               ),

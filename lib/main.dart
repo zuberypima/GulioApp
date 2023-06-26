@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-     checkAuthorization();
+    // checkAuthorization();
   }
 
   @override
@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
           FirebaseAuth.instance.currentUser == null ? 'login' : 'home',
       routes: {
         'home': (context) {
-            // checkAuthorization();
+          checkAuthorization();
           String rew = Provider.of<UserDetails>(context).userRole.toString();
           print(rew);
           if (rew == 'Mkulima') {

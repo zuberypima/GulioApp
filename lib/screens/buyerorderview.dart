@@ -15,9 +15,10 @@ class _BuyerOrdersState extends State<BuyerOrders> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _odersStream = FirebaseFirestore.instance
-        .collection('OrderPres').where('Buyer',isEqualTo: user!.email)
+        .collection('OrderPres')
+        .where('Buyer', isEqualTo: user!.email)
         .snapshots();
-  return Scaffold(
+    return Scaffold(
         appBar: AppBar(
           backgroundColor: ConstantsColors().mainColor(),
           title: Text('Orders'),
@@ -52,9 +53,38 @@ class _BuyerOrdersState extends State<BuyerOrders> {
                             Text(data['ofa'])
                           ],
                         ),
-                       
+                         trailing:data['Status']=='Pending'? Container(
+                          height: 30,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.blueGrey,
+                            border: Border.all(width: 2,color: Colors.grey),
+                            borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Center(child: Text(data['Status'],style: TextStyle(fontSize: 16,color: Colors.white))),):
+                          Container(
+                          height: 30,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            border: Border.all(width: 2,color: Colors.grey),
+                            borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Center(child: Text(data['Status'],style: TextStyle(fontSize: 16,color: Colors.white))),),
                       ),
-                       Divider( color: Colors.black26),
+                       Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Row(
+                            children: [
+                              Text('Kiasi Ninachohitaji ::',style: TextStyle(
+                                fontSize: 16,fontWeight: FontWeight.w500
+                              ),),
+                              SizedBox(width: 10,),
+                              Text(data['Kiasi'].toString(),style: TextStyle(fontSize: 16),),
+                            ],
+                          ),
+                        ),
+                      Divider(color: Colors.black26),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -92,8 +122,12 @@ class _BuyerOrdersState extends State<BuyerOrders> {
                                 child: Center(
                                   child: IconButton(
                                     onPressed: () {
-                                       Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Messages(reciver: data['Farmer'],pagefrom: 'BuyerPage',)));
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                              builder: (context) => Messages(
+                                                    reciver: data['Farmer'],
+                                                    pagefrom: 'BuyerPage',
+                                                  )));
                                     },
                                     icon: Icon(
                                       Icons.sms,
@@ -103,25 +137,28 @@ class _BuyerOrdersState extends State<BuyerOrders> {
                                 ),
                               ),
                             ),
-                           
-                             Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: InkWell(
-                                  onTap: () {
-                                    GeneralServices().deleteOder(data['Buyer']);
-                                  },
-                                  child: Container(
-                                    width: 60,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                        color: Colors.red,
-                                        border: Border.all(
-                                            width: 2, color: Colors.grey),
-                                        borderRadius: BorderRadius.circular(10)),
-                                    child: Center(child: Text('Futa',style:TextStyle(color:Colors.white,))),
-                                  ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: InkWell(
+                                onTap: () {
+                                  GeneralServices().deleteOder(data['Buyer']);
+                                },
+                                child: Container(
+                                  width: 60,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      border: Border.all(
+                                          width: 2, color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Center(
+                                      child: Text('Futa',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ))),
                                 ),
                               ),
+                            ),
                           ])
                     ],
                   ),
