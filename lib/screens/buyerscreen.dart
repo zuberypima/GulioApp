@@ -90,7 +90,7 @@ class _BuyerScreenState extends State<BuyerScreen> {
                     iconData: Icons.info_outline_rounded,
                     iconLable: 'Taarifa',
                   ),
-                  GridIconOne(1
+                  GridIconOne(
                     iconData: Icons.shopping_cart,
                     iconLable: 'Mikopo',
                   ),

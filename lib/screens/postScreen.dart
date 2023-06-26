@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,7 +25,7 @@ CollectionReference cropsposted =
 TextEditingController _bei = TextEditingController();
 // String _kipimo = "";
 TextEditingController _kipimo = TextEditingController();
-TextEditingController _stock =TextEditingController();
+TextEditingController _stock = TextEditingController();
 bool isLoading = false;
 
 void dispose() {
@@ -33,12 +35,24 @@ void dispose() {
   _stock.clear();
 }
 
+String _initialkipimo = "Chagua Kipimo";
 String? _selectedItem;
+String? _mazao;
 
 List<String> _items = [
   'Kilogram',
   'Debe',
   'Gunia',
+];
+
+List<String> _mazaoList = [
+  'Mahindi',
+  'Mchele',
+  'Maharage',
+  'Ufuta',
+  'Mtama',
+  'Kahawa',
+  'Chai'
 ];
 
 class _PostPageState extends State<PostPage> {
@@ -84,17 +98,62 @@ class _PostPageState extends State<PostPage> {
                   : Image.file(_imageFile!),
             ),
           ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 10, right: 10),
+          //   child: Column(
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
+          //       Text(
+          //         'Mazao',
+          //         style: TextStyle(
+          //             fontSize: 18,
+          //             fontWeight: FontWeight.w500,
+          //             color: Colors.blueGrey),
+          //       ),
+          //       TextFormField(
+          //         controller: _bei,
+          //         keyboardType: TextInputType.number,
+          //         decoration: InputDecoration(
+          //             enabledBorder: OutlineInputBorder(),
+          //             focusedBorder: OutlineInputBorder()),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            // child: FormFieldOne(hintText:'Aina ya zao lako',textContoler: , ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            // child: FormFieldOne(hintText: 'Locatio',textContoler: '',),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            // child: FormFieldOne(hintText: 'Bei kwa kilo',textContoler:'Hello',),
+            child: Container(
+              height: 40,
+              decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(10)),
+              child: DropdownButton<String>(
+                hint: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Chagua Zao'),
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                value: _mazao,
+                onChanged: (value) {
+                  setState(() {
+                    _mazao = value;
+                  });
+                },
+                items: _mazaoList.map((String item) {
+                  return DropdownMenuItem<String>(
+                    value: item,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 100, left: 10),
+                      child: Text(
+                        item,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -108,58 +167,73 @@ class _PostPageState extends State<PostPage> {
                       fontWeight: FontWeight.w500,
                       color: Colors.blueGrey),
                 ),
-                TextFormField(
-                  controller: _bei,
-                  keyboardType: TextInputType.number,
+                Container(
+                  height: 40,
+                  child: TextFormField(
+                    controller: _bei,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder()),
+                  ),
                 ),
               ],
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Kipimo',
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.blueGrey),
-                ),
-                // TextFormField(
-                //   controller: _kipimo,
-                //   onChanged: (value) {
-
-                //   },
-                // ),
-                DropdownButton<String>(
-                  value: _selectedItem,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedItem = value;
-                    });
-                  },
-                  items: _items.map((String item) {
-                    return DropdownMenuItem<String>(
-                      value: item,
-                      child: Text(item),
-                    );
-                  }).toList(),
-                ),SizedBox(height: 5,
-                ),
-                Text(
-                  'Kiasi Kilichopo',
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.blueGrey),
-                ),
-                TextFormField(
-                  controller: _stock,
-                  keyboardType: TextInputType.number,
-                ),
-              ],
+            child: Container(
+              height: 40,
+              decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(10)),
+              child: DropdownButton<String>(
+                hint: Text('Chagua Kipimo'),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                value: _selectedItem,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedItem = value;
+                  });
+                },
+                items: _items.map((String item) {
+                  return DropdownMenuItem<String>(
+                    value: item,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(item, style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w700),),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Kiasi Kilichopo',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.blueGrey),
+                  ),
+                  Container(
+                    height: 40,
+                    child: TextFormField(
+                      controller: _stock,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder()),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Padding(
@@ -167,12 +241,12 @@ class _PostPageState extends State<PostPage> {
             child: InkWell(
               onTap: () async {
                 setState(() {
-                  isLoading = true; 
+                  isLoading = true;
                 });
                 String imageUrl =
                     await GeneralServices().uploadImageToFirebase(_imageFile!);
-                GeneralServices()
-                    .postCrop(_bei.text,_selectedItem.toString(), user!.email,_stock.text, imageUrl);
+                GeneralServices().postCrop(_bei.text, _selectedItem.toString(),
+                    user!.email, _stock.text, imageUrl);
 
                 setState(() {
                   isLoading = false;
