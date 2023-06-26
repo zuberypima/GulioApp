@@ -26,6 +26,8 @@ class GeneralServices {
     mkulima,
     stock,
     imageUrl,
+    mazao,
+    simu
   ) {
     return cropsposted.doc(mkulima).set({
       'Bei': bei,
@@ -33,6 +35,8 @@ class GeneralServices {
       'Mkulima': mkulima,
       'Stock': stock,
       'image': imageUrl,
+      'Mazao':mazao,
+      'Simu':simu,
     });
   }
 

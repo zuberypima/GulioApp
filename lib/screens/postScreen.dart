@@ -26,18 +26,19 @@ TextEditingController _bei = TextEditingController();
 // String _kipimo = "";
 TextEditingController _kipimo = TextEditingController();
 TextEditingController _stock = TextEditingController();
+TextEditingController _simu = TextEditingController();
 bool isLoading = false;
-
+String? _mazao;
 void dispose() {
   // Clean up the controller when the widget is disposed
   _bei.clear();
   _kipimo.clear();
   _stock.clear();
+  _simu.clear();
 }
 
 String _initialkipimo = "Chagua Kipimo";
 String? _selectedItem;
-String? _mazao;
 
 List<String> _items = [
   'Kilogram',
@@ -98,28 +99,6 @@ class _PostPageState extends State<PostPage> {
                   : Image.file(_imageFile!),
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.only(left: 10, right: 10),
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: [
-          //       Text(
-          //         'Mazao',
-          //         style: TextStyle(
-          //             fontSize: 18,
-          //             fontWeight: FontWeight.w500,
-          //             color: Colors.blueGrey),
-          //       ),
-          //       TextFormField(
-          //         controller: _bei,
-          //         keyboardType: TextInputType.number,
-          //         decoration: InputDecoration(
-          //             enabledBorder: OutlineInputBorder(),
-          //             focusedBorder: OutlineInputBorder()),
-          //       ),
-          //     ],
-          //   ),
-          // ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
@@ -201,8 +180,11 @@ class _PostPageState extends State<PostPage> {
                     value: item,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(item, style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w700),),
+                      child: Text(
+                        item,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w700),
+                      ),
                     ),
                   );
                 }).toList(),
@@ -237,6 +219,33 @@ class _PostPageState extends State<PostPage> {
             ),
           ),
           Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Simu No:',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.blueGrey),
+                ),
+                Container(
+                  height: 40,
+                  child: TextFormField(
+                    controller: _simu,
+                    keyboardType: TextInputType.phone ,
+                    
+                    decoration: InputDecoration(
+                      hintText: '0728 345 695',
+                        enabledBorder: OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder()),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
             padding: const EdgeInsets.all(20),
             child: InkWell(
               onTap: () async {
@@ -246,7 +255,7 @@ class _PostPageState extends State<PostPage> {
                 String imageUrl =
                     await GeneralServices().uploadImageToFirebase(_imageFile!);
                 GeneralServices().postCrop(_bei.text, _selectedItem.toString(),
-                    user!.email, _stock.text, imageUrl);
+                    user!.email, _stock.text, imageUrl, _mazao, _simu.text);
 
                 setState(() {
                   isLoading = false;

@@ -4,7 +4,10 @@ import 'package:gulio/utilities/constantscolors.dart';
 class DisplayedCrop extends StatefulWidget {
   String farmeremail;
   String bei;
-  DisplayedCrop({required this.farmeremail, required this.bei});
+  String zao;
+  String phone;
+  
+  DisplayedCrop({required this.farmeremail, required this.bei, required this.zao, required this.phone});
 
   @override
   State<DisplayedCrop> createState() => _DisplayedCropState();
@@ -68,7 +71,7 @@ class _DisplayedCropState extends State<DisplayedCrop> {
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          Text('+255 718934183',
+                          Text(widget.phone,
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w500))
                         ],
@@ -124,7 +127,7 @@ class _DisplayedCropState extends State<DisplayedCrop> {
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          Text('Karoti',
+                          Text(widget.zao,
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w500))
                         ],

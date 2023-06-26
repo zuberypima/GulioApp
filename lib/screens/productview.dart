@@ -145,7 +145,9 @@ class _ProductViewState extends State<ProductView> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => MakeOrderPage(
                           seleremail: '',
-                          bei:''
+                          bei:'',
+                          zao: '',
+                          selerphone: '',
                         )));
               },
               child: Container(

@@ -9,12 +9,12 @@ import 'package:gulio/widgets/displayedcrop.dart';
 import 'package:provider/provider.dart';
 
 class MakeOrderPage extends StatefulWidget {
-  //String selerphone;
+  String selerphone;
   String bei;
-  //String zao;
+  String zao;
   String seleremail;
 
-  MakeOrderPage({super.key, required this.seleremail,required this.bei});
+  MakeOrderPage({super.key, required this.seleremail,required this.bei,required this.zao,required this.selerphone});
 
   @override
   State<MakeOrderPage> createState() => _MakeOrderPageState();
@@ -48,6 +48,8 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
           DisplayedCrop(
             farmeremail:widget.seleremail,
             bei: widget.bei,
+           zao: widget.zao,
+           phone: widget.selerphone,
           ), 
           // DisplayedCrop(),
 

@@ -77,7 +77,9 @@ class _MarketPageState extends State<MarketPage> {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => MakeOrderPage(
                                             seleremail: data['Mkulima'],
-                                            bei:data['Bei']
+                                            bei:data['Bei'],
+                                            zao: data['Mazao'],
+                                            selerphone:data['Simu'],
                                           )));
                                 },
                                 child: Text('Oda'))),
