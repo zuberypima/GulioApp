@@ -44,7 +44,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    // checkAuthorization();
   }
 
   @override
@@ -58,21 +57,18 @@ class _MyAppState extends State<MyApp> {
         'home': (context) {
           checkAuthorization();
           String rew = Provider.of<UserDetails>(context).userRole.toString();
-          print(rew);
           if (rew == 'Mkulima') {
             return FarmerPage();
           } else {
             return BuyerHomePage();
           }
         },
-        // 'mkulima': (context) => FarmerPage(),
         'profile': (context) => ProfileScreen(),
         'postscreen': (context) => PostPage(),
         'cropchoice': (context) => SelecteCropPage(),
         'login': (context) => LoginPage(),
         'register': (context) => SelectAccountType(),
         'buyer': (context) => BuyerHomePage()
-        // 'order':(context) => Orders(),
       },
     );
   }

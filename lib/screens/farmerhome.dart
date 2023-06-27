@@ -3,7 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gulio/providers/userdata.dart';
-import 'package:gulio/screens/selerscreen.dart';
+import 'package:gulio/screens/selerHomeScreen.dart';
 import 'package:gulio/screens/marketpage.dart';
 import 'package:gulio/screens/postScreen.dart';
 import 'package:gulio/screens/profilescreen.dart';

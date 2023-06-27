@@ -5,6 +5,8 @@ import 'package:gulio/screens/authscreens/autfunctions.dart';
 import 'package:gulio/screens/authscreens/loginpage.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 
+// Profile Page 
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -73,9 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Divider(
                         color: Colors.black,
                       ),
-                      // Divider(
-                      //   color: Colors.black,
-                      // ),
+                      
                       ListTile(
                         leading: Icon(Icons.home),
                         title: Text('Nyumbani'),

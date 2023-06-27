@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:gulio/services/gerneralservices.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 
+
+
+// Page for Posting Content on Forum / JamiiiPage 
+
 class CreateTopic extends StatefulWidget {
   const CreateTopic({super.key});
 

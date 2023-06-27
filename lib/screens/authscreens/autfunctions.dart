@@ -7,7 +7,7 @@ import 'package:gulio/providers/userdata.dart';
 import 'package:gulio/screens/authscreens/loginpage.dart';
 import 'package:gulio/screens/buyerhome.dart';
 import 'package:gulio/screens/farmerhome.dart';
-import 'package:gulio/screens/selerscreen.dart';
+import 'package:gulio/screens/selerHomeScreen.dart';
 import 'package:provider/provider.dart';
 
 class AuthFunction {

@@ -9,6 +9,9 @@ import 'package:gulio/screens/profilescreen.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/homegridIcon.dart';
 
+
+// Main Page View for Farmer or saler 
+
 class SelerScreen extends StatefulWidget {
   const SelerScreen({super.key});
 
@@ -18,6 +21,8 @@ class SelerScreen extends StatefulWidget {
 
 class _SelerScreenState extends State<SelerScreen> {
 User? user =FirebaseAuth.instance.currentUser;
+
+
   @override
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
@@ -97,6 +102,7 @@ User? user =FirebaseAuth.instance.currentUser;
                   ),
                   InkWell(
                     onTap: () {
+                      // Navigate to Jamii Page
                       Navigator.of(context).push(MaterialPageRoute(builder: (context)=>JamiiPage()));
                     },
                     child: GridIconOne(
@@ -109,7 +115,7 @@ User? user =FirebaseAuth.instance.currentUser;
             )
           ],
         ),
-        // add button
+        // Post Page  button
         floatingActionButton: FloatingActionButton(
           backgroundColor: ConstantsColors().mainColor(),
           onPressed: () {

@@ -8,6 +8,8 @@ import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/displayedcrop.dart';
 import 'package:provider/provider.dart';
 
+// Page to view Selected Product from the Market place
+
 class MakeOrderPage extends StatefulWidget {
   String selerphone;
   String bei;
@@ -31,12 +33,6 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
     final _selectedbidhaa = Provider.of<UserDetails>(context);
     CollectionReference selectedPost =
         FirebaseFirestore.instance.collection('Posts');
-
-    //     QuerySnapshot querySnapshot = await firestore
-    // .collection('your_collection_name')
-    // .where(fieldName, isEqualTo: fieldValue)
-    // .limit(1)
-    // .get();
 
     return Scaffold(
       appBar: AppBar(

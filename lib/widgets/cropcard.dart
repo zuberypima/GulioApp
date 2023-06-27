@@ -23,7 +23,6 @@ bool _isSelected=false;
       },
       child: Card(
         // ignore: prefer_const_constructors
-        // color: Color.fromARGB(174, 255, 214, 64),
         color: widget.color,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

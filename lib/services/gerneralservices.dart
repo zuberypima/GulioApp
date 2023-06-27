@@ -20,6 +20,9 @@ class GeneralServices {
   CollectionReference orderpresed =
       FirebaseFirestore.instance.collection('OrderPres');
   final DateTime sentTime = DateTime.now();
+
+
+  // Function for post Crop
   postCrop(
     String bei,
     kipimo,
@@ -40,6 +43,8 @@ class GeneralServices {
     });
   }
 
+
+// Function when the Order is Created
   oderpressed(String offered, kiasi, String seller, buyer) {
     return orderpresed.doc(buyer).set({
       "ofa": offered,
@@ -50,6 +55,7 @@ class GeneralServices {
     });
   }
 
+  // Function to check Order Status
   void updateOrder(String buyerID) {
     DocumentReference docRef =
         FirebaseFirestore.instance.collection('OrderPres').doc(buyerID);
@@ -64,6 +70,10 @@ class GeneralServices {
       print('Failed to update document: $error');
     });
   }
+
+
+
+// Function for update Stock
 
   void updateStock(String selerID, newquantity) {
     DocumentReference docRef =
@@ -80,6 +90,8 @@ class GeneralServices {
     });
   }
 
+
+// Functiuon to delete the Orders
   void deleteOder(String buyerID) {
     // Get a reference to the document you want to delete
     DocumentReference docRef =
@@ -93,6 +105,7 @@ class GeneralServices {
     });
   }
 
+// Functio to get Post Details 
   void getPostDetails(String selerID, orderquantity) {
     // Get a reference to the document you want to retrieve
     DocumentReference docRef =
@@ -103,13 +116,8 @@ class GeneralServices {
       if (snapshot.exists) {
         // Document exists, retrieve its data
         Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
-        print(data!['Stock'].toString());
-        var stock = double.parse(data['Stock'].toString());
-        print('object');
+        var stock = double.parse(data!['Stock'].toString());
         var quant = double.parse(orderquantity);
-
-        print(stock.runtimeType);
-        print(quant.runtimeType);
         var newtock = (stock - quant).toString();
         updateStock(selerID, newtock);
       } else {
@@ -121,25 +129,8 @@ class GeneralServices {
     });
   }
 
-  // updateStock(
-  //   stock,
-  // ) {
-  //   FirebaseFirestore.instance
-  //       .collection('Posts')
-  //       .doc(user!.email)
-  //       .get()
-  //       .then((DocumentSnapshot documentSnapshot) {
-  //     if (documentSnapshot.exists) {
-  //       postCrop(
-  //           documentSnapshot.get('Bei'),
-  //           documentSnapshot.get('Kipimo'),
-  //           documentSnapshot.get('Mkulima'),
-  //           stock,
-  //           documentSnapshot.get('image'));
-  //     }
-  //   });
-  // }
 
+// Function to make the phone Call
   makingPhoneCall() async {
     final url = Uri.parse("tel:9776765434");
     if (await canLaunchUrl(url)) {
@@ -158,9 +149,10 @@ callNumber() async{
         .add({'SoldStock': odervalue});
   }
 
-  // void postCrop(param0, param1, param2, stock, param4) {
-  // }
 
+
+
+// Function to send SMS 
   sendSMS(
     String body,
     buyer,
@@ -178,6 +170,9 @@ callNumber() async{
     });
   }
 
+
+
+// Function for Postion on forum
   jamiiPost(
     String body,
     poster,
@@ -187,6 +182,8 @@ callNumber() async{
         .doc(poster + ' ' + sentTime.toString())
         .set({'Poster': poster, 'body': body, 'SentTime': sentTime});
   }
+
+
 
   commentPost(
     String body,
@@ -198,16 +195,8 @@ callNumber() async{
         .set({'Contributer': contributer, 'body': body, 'SentTime': sentTime});
   }
 
-  // Future<String?> getPostDetails(String postId) async {
-  //   QuerySnapshot<Object?> snapshot =
-  //       await cropsposted.where('', isEqualTo: '').get();
-  //   // if (snapshot.exists) {
-  //   //   Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-  //   //   return data['userrole'] as String?;
-  //   // }
-  //   return null;
-  // }
 
+// Function to Post Image
   Future<String> uploadImageToFirebase(File imageFile) async {
     String fileName = basename(imageFile.path);
     Reference storageReference = FirebaseStorage.instance.ref().child(fileName);

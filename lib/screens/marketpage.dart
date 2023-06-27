@@ -7,6 +7,9 @@ import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/productcard.dart';
 import 'package:provider/provider.dart';
 
+
+// Page for All Posted in the Market 
+
 class MarketPage extends StatefulWidget {
   const MarketPage({super.key});
 
@@ -22,7 +25,6 @@ class _MarketPageState extends State<MarketPage> {
     final Stream<QuerySnapshot> _userposts =
         FirebaseFirestore.instance.collection('Posts').snapshots();
            final userRole = Provider.of<UserDetails>(context);
-    // final provider =Provider.of<UserDetails>(context);
     return Scaffold(
         backgroundColor: Colors.grey[300],
         appBar: AppBar(
