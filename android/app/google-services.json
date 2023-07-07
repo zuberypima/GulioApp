@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "660476777764",
-    "project_id": "mkulima-9c770",
-    "storage_bucket": "mkulima-9c770.appspot.com"
+    "project_number": "119689918079",
+    "project_id": "gulio-4263a",
+    "storage_bucket": "gulio-4263a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:660476777764:android:04afca535f7b8842ad4fb1",
+        "mobilesdk_app_id": "1:119689918079:android:9a813f98c07b090edaf14a",
         "android_client_info": {
           "package_name": "com.example.gulio"
         }
       },
       "oauth_client": [
         {
-          "client_id": "660476777764-7jbfgq8praqhl0hgr5n32n4p46f25uik.apps.googleusercontent.com",
+          "client_id": "119689918079-as9u8tu554aem577jce1anoqdlm31tfs.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBfkE7KB3OGa-p048SoX5qQeub545b2aFk"
+          "current_key": "AIzaSyCT1HaqViqBWWahPWq8IdTK0bGFdqLSPj8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "660476777764-7jbfgq8praqhl0hgr5n32n4p46f25uik.apps.googleusercontent.com",
+              "client_id": "119689918079-as9u8tu554aem577jce1anoqdlm31tfs.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -45,20 +45,30 @@ class GeneralServices {
 
 
 // Function when the Order is Created
-  oderpressed(String offered, kiasi, String seller, buyer) {
-    return orderpresed.doc(buyer).set({
+  // oderpressed(String offered, kiasi, String seller, buyer) {
+  //   return orderpresed.doc(buyer).set({
+  //     "ofa": offered,
+  //     "Kiasi": kiasi,
+  //     "Farmer": seller,
+  //     "Buyer": buyer,
+  //     'Status': 'Pending'
+  //   });
+  // }
+ oderpressed(String offered, kiasi, String seller, buyer,sellerphone) {
+    return orderpresed.add({
       "ofa": offered,
       "Kiasi": kiasi,
       "Farmer": seller,
       "Buyer": buyer,
+      "SellerPhone":sellerphone,
       'Status': 'Pending'
     });
   }
-
   // Function to check Order Status
-  void updateOrder(String buyerID) {
+  void updateOrder(String oderID) {
     DocumentReference docRef =
-        FirebaseFirestore.instance.collection('OrderPres').doc(buyerID);
+        // FirebaseFirestore.instance.collection('OrderPres').doc(buyerID);
+        FirebaseFirestore.instance.collection('OrderPres').doc(oderID);
 
     // Update the document fields
     docRef.update({
@@ -92,11 +102,10 @@ class GeneralServices {
 
 
 // Functiuon to delete the Orders
-  void deleteOder(String buyerID) {
+  void deleteOder(String oderID) {
     // Get a reference to the document you want to delete
     DocumentReference docRef =
-        FirebaseFirestore.instance.collection('OrderPres').doc(buyerID);
-
+        FirebaseFirestore.instance.collection('OrderPres').doc(oderID);
     // Delete the document
     docRef.delete().then((value) {
       print('Document deleted successfully!');
@@ -131,8 +140,8 @@ class GeneralServices {
 
 
 // Function to make the phone Call
-  makingPhoneCall() async {
-    final url = Uri.parse("tel:9776765434");
+  makingPhoneCall(String phoneNumber) async {
+    final url = Uri.parse("tel:${phoneNumber}");
     if (await canLaunchUrl(url)) {
       await launchUrl(url);
     } else {

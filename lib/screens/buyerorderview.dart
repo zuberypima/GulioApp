@@ -100,7 +100,7 @@ class _BuyerOrdersState extends State<BuyerOrders> {
                                     borderRadius: BorderRadius.circular(10)),
                                 child: IconButton(
                                   onPressed: () {
-                                    GeneralServices().makingPhoneCall();
+                                    GeneralServices().makingPhoneCall(data['SellerPhone']);
                                   },
                                   icon: Icon(
                                     Icons.phone_enabled,
@@ -141,7 +141,7 @@ class _BuyerOrdersState extends State<BuyerOrders> {
                               padding: const EdgeInsets.all(10.0),
                               child: InkWell(
                                 onTap: () {
-                                  GeneralServices().deleteOder(data['Buyer']);
+                                  GeneralServices().deleteOder(document.id);
                                 },
                                 child: Container(
                                   width: 60,

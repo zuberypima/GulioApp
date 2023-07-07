@@ -35,6 +35,7 @@ void dispose() {
   _kipimo.clear();
   _stock.clear();
   _simu.clear();
+  _imageFile =null;
 }
 
 String _initialkipimo = "Chagua Kipimo";

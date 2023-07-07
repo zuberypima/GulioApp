@@ -104,7 +104,7 @@ class _SelerOrdersState extends State<SelerOrders> {
                                       borderRadius: BorderRadius.circular(10)),
                                   child: IconButton(
                                     onPressed: () {
-                                       GeneralServices().makingPhoneCall();
+                                       GeneralServices().makingPhoneCall('07456789');
                                     },
                                     icon: Icon(
                                       Icons.phone_enabled,
@@ -145,7 +145,7 @@ class _SelerOrdersState extends State<SelerOrders> {
                                 padding: const EdgeInsets.all(10.0),
                                 child: InkWell(
                                   onTap: () {;
-                                  GeneralServices().updateOrder(data['Buyer']);
+                                  GeneralServices().updateOrder(document.id);
                                     //int updateStock = int.parse(data['Maelezo']) +int.parse(data['Maelezo']) ;
                                     GeneralServices().getPostDetails(data['Farmer'],data['Kiasi']);
                                   },
@@ -165,7 +165,7 @@ class _SelerOrdersState extends State<SelerOrders> {
                                 padding: const EdgeInsets.all(10.0),
                                 child: InkWell(
                                   onTap: () {
-                                    GeneralServices().deleteOder(data['Buyer']);
+                                    GeneralServices().deleteOder(document.id);
                                   },
                                   child: Container(
                                     width: 60,

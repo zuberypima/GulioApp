@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gulio/providers/userdata.dart';
-import 'package:gulio/screens/messages.dart';
 import 'package:gulio/services/gerneralservices.dart';
 import 'package:gulio/utilities/constantscolors.dart';
 import 'package:gulio/widgets/displayedcrop.dart';
@@ -101,7 +100,8 @@ class _MakeOrderPageState extends State<MakeOrderPage> {
                   _offer.text,
                 _details.text,
                   widget.seleremail,
-                  user!.email
+                  user!.email,
+                   widget.selerphone,
                 );
 
                 setState(() {
