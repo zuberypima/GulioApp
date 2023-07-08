@@ -22,14 +22,23 @@ class _BuyerRegPageState extends State<BuyerRegPage> {
 
   @override
   Widget build(BuildContext context) {
-    String _firstName = '',
-        _lastName = '',
-        _phonenumber = '',
-        _email = '',
-        _password = '';
+    // String
+    // _firstName = '',
+    // _lastName = '',
+    // _phonenumber = '',
+    // _email = '',
+    // _password = '';
     User? user = FirebaseAuth.instance.currentUser;
 
     bool _isLoading = false;
+
+    TextEditingController _firstName = TextEditingController();
+    TextEditingController _lastName = TextEditingController();
+    TextEditingController _phonenumber = TextEditingController();
+    TextEditingController _email = TextEditingController();
+    TextEditingController _password = TextEditingController();
+
+    final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
     return Scaffold(
       // backgroundColor: ConstantsColors().mainColor(),
       appBar: AppBar(
@@ -39,273 +48,323 @@ class _BuyerRegPageState extends State<BuyerRegPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
-                    child: Text(
-                      'Jina la Kwanza',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 45,
-                    color: Colors.white,
-                    child: TextFormField(
-                      onChanged: (value) {
-                        _firstName = value;
-                      },
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        hintText: 'Juma ',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
-                    child: Text(
-                      'Jina la Mwisho',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 45,
-                    color: Colors.white,
-                    child: TextFormField(
-                      onChanged: (value) {
-                        _lastName = value;
-                      },
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        hintText: 'Kilungi',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
-                    child: Text(
-                      'Email Address',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 45,
-                    color: Colors.white,
-                    child: TextFormField(
-                      onChanged: (value) {
-                        _email = value;
-                      },
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        hintText: 'Email',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
-                    child: Text(
-                      'Number ya Simu',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 45,
-                    color: Colors.white,
-                    child: TextFormField(
-                      onChanged: (value) {
-                        _phonenumber = value;
-                      },
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        hintText: '+255 67 890 786',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
-                    child: Text(
-                      'Neno la Siri',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 45,
-                    color: Colors.white,
-                    child: TextFormField(
-                      obscureText: true,
-                      onChanged: (value) {
-                        _password = value;
-                      },
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        hintText: '**********',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
-                    child: Text(
-                      'Rudia Neno la Siri',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 45,
-                    color: Colors.white,
-                    child: TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2)),
-                        hintText: '******',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 30, 0, 0),
-              child: Center(
-                  child: InkWell(
-                onTap: () {
-                },
-                child: InkWell(
-                  onTap: () async {
-                    setState(() {
-                      _isLoading = true;
-                        _loadingIndicator(_isLoading);
-                    }); 
-                    await AuthFunction().signUp( context,_firstName,_lastName,_email,_phonenumber,
-                       _password,'Buyer','Tanzania');
-                    setState(() {
-                      _isLoading = false;
-                   
-                    });
-                  },
-                  child: Container(
-                    width: 130,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.cyan,
-                        border: Border.all(color: Colors.grey, width: 2),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(
-                      child:_isLoading?CircularProgressIndicator(): Text(
-                        'Sajili',
+        child: Form(
+          key: _formkey,
+          child: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
+                      child: Text(
+                        'Jina la Kwanza',
                         style: TextStyle(
-                            fontSize: ConstantsColors().textSizeOne,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 45,
+                      color: Colors.white,
+                      child: TextFormField(
+                        // onChanged: (value) {
+                        //   _firstName = value;
+                        // },
+                        controller: _firstName,
+                        onChanged: (value) {
+                          _formkey.currentState?.validate();
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Pleaaase Enter a name";
+                          } else if (!RegExp(r'[a-zA-Z]{2,} ')
+                              .hasMatch(value)) {
+                            return 'Please endet a valid name';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2)),
+                          hintText: 'Juma ',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
+                      child: Text(
+                        'Jina la Mwisho',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 45,
+                      color: Colors.white,
+                      child: TextFormField(
+                       
+                        controller: _lastName,
+                        onChanged: (value) {
+                          _formkey.currentState?.validate();
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Pleaaase Enter a name";
+                          } else if (!RegExp(r'[a-zA-Z]{2,} ')
+                              .hasMatch(value)) {
+                            return 'Please endet a valid name';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2)),
+                          hintText: 'Kilungi',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
+                      child: Text(
+                        'Email Address',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 45,
+                      color: Colors.white,
+                      child: TextFormField(
+                        // onChanged: (value) {
+                        //   _email = value;
+                        // },
+                        controller: _email,
+                        onChanged: (value) {
+                          _formkey.currentState?.validate();
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Pleaaase Enter an Email Address";
+                          } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                              .hasMatch(value)) {
+                            return 'Please endet a Valid Email Address';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2)),
+                          hintText: 'Email',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
+                      child: Text(
+                        'Number ya Simu',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 45,
+                      color: Colors.white,
+                      child: TextFormField(
+                        // onChanged: (value) {
+                        //   _phonenumber = value;
+                        // },
+                         controller: _phonenumber,
+                        onChanged: (value) {
+                          _formkey.currentState?.validate();
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Pleaaase Enter Phone Number";
+                          } else if (!RegExp(r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$')
+                              .hasMatch(value)) {
+                            return 'Please endet a valid Phone Number';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2)),
+                          hintText: '+255 67 890 786',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
+                      child: Text(
+                        'Neno la Siri',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 45,
+                      color: Colors.white,
+                      child: TextFormField(
+                        obscureText: true,
+                          controller: _password,
+                        // onChanged: (value) {
+                        //   _password = value;
+                        // },
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2)),
+                          hintText: '**********',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
+                      child: Text(
+                        'Rudia Neno la Siri',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 45,
+                      color: Colors.white,
+                      child: TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2)),
+                          hintText: '******',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 30, 0, 0),
+                child: Center(
+                    child: InkWell(
+                  onTap: () {},
+                  child: InkWell(
+                    onTap: () async {
+                      setState(() {
+                        _isLoading = true;
+                        _loadingIndicator(_isLoading);
+                      });
+                      await AuthFunction().signUp(
+                          context,
+                          _firstName.text,
+                          _lastName.text,
+                          _email.text,
+                          _phonenumber.text,
+                          _password.text,
+                          'Buyer',
+                          'Tanzania');
+                      setState(() {
+                        _isLoading = false;
+                      });
+                    },
+                    child: Container(
+                      width: 130,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Colors.cyan,
+                          border: Border.all(color: Colors.grey, width: 2),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: _isLoading
+                            ? CircularProgressIndicator()
+                            : Text(
+                                'Sajili',
+                                style: TextStyle(
+                                    fontSize: ConstantsColors().textSizeOne,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700),
+                              ),
                       ),
                     ),
                   ),
-                ),
-              )),
-            ),
-          ],
+                )),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  signUp(
-    String firstName,
-    lastName,
-    phonenumber,
-    email,
-    password,
-    userlocation,
-    role
-  ) async {
+  signUp(String firstName, lastName, phonenumber, email, password, userlocation,
+      role) async {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
-     await userDataCollections(
+      await userDataCollections(
           firstName, lastName, phonenumber, email, role, userlocation);
-           Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SelecteCropPage()));
-
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => SelecteCropPage()));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
