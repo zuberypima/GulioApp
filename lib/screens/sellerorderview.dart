@@ -165,7 +165,7 @@ class _SelerOrdersState extends State<SelerOrders> {
                                 padding: const EdgeInsets.all(10.0),
                                 child: InkWell(
                                   onTap: () {
-                                    GeneralServices().deleteOder(document.id);
+                                    GeneralServices().rejectOrder(document.id);
                                   },
                                   child: Container(
                                     width: 60,

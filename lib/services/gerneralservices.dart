@@ -82,6 +82,23 @@ class GeneralServices {
   }
 
 
+    void rejectOrder(String oderID) {
+    DocumentReference docRef =
+        // FirebaseFirestore.instance.collection('OrderPres').doc(buyerID);
+        FirebaseFirestore.instance.collection('OrderPres').doc(oderID);
+
+    // Update the document fields
+    docRef.update({
+      'Status': 'Imekataliwa',
+      // Add more fields to update
+    }).then((value) {
+      print('Document updated successfully!');
+    }).catchError((error) {
+      print('Failed to update document: $error');
+    });
+  }
+
+
 
 // Function for update Stock
 
