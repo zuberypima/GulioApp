@@ -22,15 +22,23 @@ class _FarmerRegPageState extends State<FarmerRegPage> {
 
   @override
   Widget build(BuildContext context) {
-    String _firstName = '',
-        _lastName = '',
-        _phonenumber = '',
-        _email = '',
-        _password = '';
-    User? user = FirebaseAuth.instance.currentUser;
+    // String
+    // _firstName = '',
+    // _lastName = '',
+    // _phonenumber = '',
+    // _email = '',
+    // _password = '';
 
+    User? user = FirebaseAuth.instance.currentUser;
     bool _isLoading = false;
-final GlobalKey<FormState> _formkey =GlobalKey<FormState>();
+
+    TextEditingController _firstName = TextEditingController();
+    TextEditingController _lastName = TextEditingController();
+    TextEditingController _phonenumber = TextEditingController();
+    TextEditingController _email = TextEditingController();
+    TextEditingController _password = TextEditingController();
+
+    final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
     return Scaffold(
       // backgroundColor: ConstantsColors().mainColor(),
       appBar: AppBar(
@@ -41,6 +49,7 @@ final GlobalKey<FormState> _formkey =GlobalKey<FormState>();
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
         child: Form(
+          key: _formkey,
           child: ListView(
             children: [
               Padding(
@@ -58,12 +67,21 @@ final GlobalKey<FormState> _formkey =GlobalKey<FormState>();
                         ),
                       ),
                     ),
-                    Container( 
+                    Container(
                       height: 45,
                       color: Colors.white,
                       child: TextFormField(
+                        controller: _firstName,
                         onChanged: (value) {
-                          _firstName = value;
+                          _formkey.currentState?.validate();
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Pleaaase Enter a name";
+                          } else if (!RegExp(r'[a-zA-Z]{2,} ')
+                              .hasMatch(value)) {
+                            return 'Please endet a valid name';
+                          }
                         },
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -96,8 +114,17 @@ final GlobalKey<FormState> _formkey =GlobalKey<FormState>();
                       height: 45,
                       color: Colors.white,
                       child: TextFormField(
+                        controller: _lastName,
                         onChanged: (value) {
-                          _lastName = value;
+                          _formkey.currentState?.validate();
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Pleaaase Enter a name";
+                          } else if (!RegExp(r'[a-zA-Z]{2,} ')
+                              .hasMatch(value)) {
+                            return 'Please endet a valid name';
+                          }
                         },
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -130,8 +157,17 @@ final GlobalKey<FormState> _formkey =GlobalKey<FormState>();
                       height: 45,
                       color: Colors.white,
                       child: TextFormField(
+                        controller: _email,
                         onChanged: (value) {
-                          _email = value;
+                          _formkey.currentState?.validate();
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Pleaaase Enter an Email Address";
+                          } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                              .hasMatch(value)) {
+                            return 'Please endet a Valid Email Address';
+                          }
                         },
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -164,8 +200,20 @@ final GlobalKey<FormState> _formkey =GlobalKey<FormState>();
                       height: 45,
                       color: Colors.white,
                       child: TextFormField(
+                        // onChanged: (value) {
+                        //   _phonenumber = value;
+                        // },
+                        controller: _phonenumber,
                         onChanged: (value) {
-                          _phonenumber = value;
+                          _formkey.currentState?.validate();
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Pleaaase Enter Phone Number";
+                          } else if (!RegExp(r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$')
+                              .hasMatch(value)) {
+                            return 'Please endet a valid Phone Number';
+                          }
                         },
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -198,10 +246,11 @@ final GlobalKey<FormState> _formkey =GlobalKey<FormState>();
                       height: 45,
                       color: Colors.white,
                       child: TextFormField(
+                        controller: _password,
                         obscureText: true,
-                        onChanged: (value) {
-                          _password = value;
-                        },
+                        // onChanged: (value) {
+                        //   _password = value;
+                        // },
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(width: 2)),
@@ -250,28 +299,27 @@ final GlobalKey<FormState> _formkey =GlobalKey<FormState>();
                 padding: const EdgeInsets.fromLTRB(10, 30, 0, 0),
                 child: Center(
                     child: InkWell(
-                  onTap: () {
-                   },
+                  onTap: () {},
                   child: InkWell(
                     onTap: () async {
-                       setState(() {
-                         _isLoading = true;
-                       });
-                       _loadingIndicator(_isLoading);
-        
-                          await AuthFunction().signUp(
-                              context,
-                              _firstName,
-                              _lastName,
-                              _email,
-                              _phonenumber,
-                              _password,
-                              'Mkulima',
-                              'Tanzania');
-        
                       setState(() {
-                       _isLoading = false;
-                       });
+                        _isLoading = true;
+                      });
+                      _loadingIndicator(_isLoading);
+
+                      await AuthFunction().signUp(
+                          context,
+                          _firstName.text,
+                          _lastName.text,
+                          _email.text,
+                          _phonenumber.text,
+                          _password.text,
+                          'Mkulima',
+                          'Tanzania');
+
+                      setState(() {
+                        _isLoading = false;
+                      });
                     },
                     child: Container(
                       width: 130,
@@ -300,26 +348,26 @@ final GlobalKey<FormState> _formkey =GlobalKey<FormState>();
     );
   }
 
-  signUp(String firstName, lastName, phonenumber, email, password, userlocation,
-      role) async {
-    try {
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+  // signUp(String firstName, lastName, phonenumber, email, password, userlocation,
+  //     role) async {
+  //   try {
+  //     await FirebaseAuth.instance
+  //         .createUserWithEmailAndPassword(email: email, password: password);
 
-      await userDataCollections(
-          firstName, lastName, phonenumber, email, role, userlocation);
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => SelecteCropPage()));
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  //     await userDataCollections(
+  //         firstName, lastName, phonenumber, email, role, userlocation);
+  //     Navigator.of(context)
+  //         .push(MaterialPageRoute(builder: (context) => SelecteCropPage()));
+  //   } on FirebaseAuthException catch (e) {
+  //     if (e.code == 'weak-password') {
+  //       print('The password provided is too weak.');
+  //     } else if (e.code == 'email-already-in-use') {
+  //       print('The account already exists for that email.');
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   userDataCollections(String _firstName, _lastName, _email, _phonenumber,
       _userrole, userlocation) async {

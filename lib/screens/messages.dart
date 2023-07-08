@@ -26,16 +26,19 @@ class _MessagesState extends State<Messages> {
         .collection('Messages') .orderBy('SentTime',descending: false)
         .where('Farmer', isEqualTo: widget.reciver)
         .where('Buyer', isEqualTo: user!.email)
-     
         .snapshots();
 
     final Stream<QuerySnapshot> _farmerside = FirebaseFirestore.instance
         .collection('Messages').orderBy('SentTime',descending: false) 
         .where('Buyer', isEqualTo: widget.reciver)
-        .where('Farmer', isEqualTo: user!.email)
-        
-        .snapshots();
-  
+        .where('Farmer', isEqualTo: user!.email) 
+    .snapshots();
+  // final Stream<QuerySnapshot> _messages = FirebaseFirestore.instance
+  //       .collection('Messages') .orderBy('SentTime',descending: false)
+  //       .where('Reciever', isEqualTo: widget.reciver)
+  //       .where('Sender', isEqualTo: user!.email)
+  //       .snapshots();
+
     return Scaffold(
       backgroundColor: Colors.greenAccent[100],
       appBar: AppBar(
@@ -45,11 +48,12 @@ class _MessagesState extends State<Messages> {
       ),
       body: Stack(
         children: [
-          Positioned(
-            top: 5,
-            left: 5,
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             child: StreamBuilder<QuerySnapshot>(
-              stream: widget.pagefrom == 'BuyerPage' ? _buyesrside : _farmerside,
+            stream: widget.pagefrom == 'BuyerPage' ? _buyesrside : _farmerside,
+              //  stream: _messages,
               builder:
                   (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
@@ -123,12 +127,14 @@ class _MessagesState extends State<Messages> {
           ),
            Positioned(
             bottom: 10,
-             child: Row(children: [
+            right: 5,
+            left: 5,
+                         child: Row(children: [
               Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Container(
                   height: 45,
-                  width: 400,
+                   width: MediaQuery.of(context).size.width/1.3,
                   decoration: BoxDecoration(
                       color: Colors.greenAccent[100],
                       border: Border.all(
@@ -150,16 +156,18 @@ class _MessagesState extends State<Messages> {
               child: Center(
                 child: IconButton(
                   onPressed: () {
+                    //  GeneralServices().sendSMS(_messagebody.text,
+                    //       user!.email, widget.reciver,);
                     if (widget.pagefrom == 'BuyerPage') {
                       GeneralServices().sendSMS(_messagebody.text,
-                          user!.email, widget.reciver, user!.email);
+                          user!.email, widget.reciver,user!.email);
                       clearText();
                     } else {
                       GeneralServices().sendSMS(_messagebody.text,
                           widget.reciver, user!.email, user!.email);
                       clearText();
                     }
-                  },
+                   },
                   icon: Icon(
                     Icons.send,
                     size: 30,

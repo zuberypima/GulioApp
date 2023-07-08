@@ -148,10 +148,12 @@ class GeneralServices {
       throw 'Could not launch $url';
     }
   }
-callNumber() async{
-  const number = '0859211'; //set the number here
-  bool? res = await FlutterPhoneDirectCaller.callNumber(number);
-}
+// callNumber() async{
+//   const number = '0859211'; //set the number here
+//   bool? res = await FlutterPhoneDirectCaller.callNumber(number);
+// }
+
+// Function to recieve oder
   recivedOder(odervalue) {
     FirebaseFirestore.instance
         .collection('RecievdeOders')
@@ -164,14 +166,14 @@ callNumber() async{
 // Function to send SMS 
   sendSMS(
     String body,
-    buyer,
-    farmer,
-    sender,
+     buyer,
+     farmer,
+     sender,
   ) {
     return messages.add({
       // 'Sender': user!.email,
       'Buyer': buyer,
-      'Farmer': farmer,
+      'Farmer':farmer,
       'body': body,
       'Date': 'Test Date',
       'Sender': sender,
